@@ -8,7 +8,7 @@ window.TH={
  rounds:15, // SAMPLE
  r8:{circuit:'Seaside Circuit',date:'2026-10-05',pole:'#73 TEAM_H',fl:'#78 TEAM_H 1:39.842',
   hyper:[['1','#73','TEAM_H','1:42:18.331'],['2','#11','팀 1','+4.2s'],['3','#78','TEAM_H','+9.8s']],
-  gt3:[['1','#32','GT3 팀 5','1:31:07.512'],['2','#75','TEAM_H','+2.1s'],['3','#14','GT3 팀 7','+5.0s']]}, // SAMPLE
+  gt3:[['1','#40','GT3 팀 5','1:31:07.512'],['2','#75','TEAM_H','+2.1s'],['3','#44','GT3 팀 7','+5.0s']]}, // SAMPLE
  programs:[
   {t:'ARC Hypercar',d:'Ferrari 499P 기반 Hypercar. 자체 개발 Tenpest V10으로 챔피언십을 이끈다.',r:[['차량번호','73 / 78'],['엔진','Tenpest V10 700hp'],['타이틀','3회 (2023–2025)']]},
   {t:'ARC GT3',d:'Mercedes-AMG GT3 EVO로 출전하는 GT3 프로그램.',r:[['차량번호','75 / 76'],['엔진','6.2L V8 550hp'],['타이틀','컨스트럭터 2회 (2024–2025)']]}, // SAMPLE
@@ -96,3 +96,16 @@ TH.goods=[ // id, 이름, 분류, 가격, 이미지(images/store/), 설명, 사�
  {id:'wp',n:'배경화면 팩',c:'디지털',p:0,f:'wallpaper-pack',d:'휴대폰과 PC용 배경화면 6종.'},
  {id:'dcp',n:'드라이버 카드 팩',c:'디지털',p:3000,f:'card-pack',d:'4명의 드라이버 디지털 카드 모음.'}];
 TH.drivers.forEach(function(d,i){TH.goods.splice(3+i,0,{id:'tee-'+d.f,n:d.n+' 드라이버 티셔츠',c:'의류',p:45000,f:'tee-'+d.f,d:'#'+d.no+' '+d.n+'의 개인 컬러를 넣은 티셔츠.',s:1})});
+
+/* ===== 서킷, IGTC, 차량 목록 ===== */
+TH.circ={'Harbor Park':['Harbor City',4.1,14,'1:38.92','항구 옆 도심형. 저속 코너가 이어진다.'],'Ridge Raceway':['Ridge Valley',5.3,16,'1:46.31','능선을 따라 고저차가 큰 코스.'],'Lakeside GP':['Lakeside',4.8,15,'1:41.77','호수를 도는 고속 위주 코스.'],'Summit Circuit':['Summit Hills',6.2,20,'2:02.45','긴 직선과 급한 헤어핀이 있는 산악 코스.'],'Delta Speedway':['Delta',3.9,11,'1:33.60','짧고 빠른 평지 코스. 추월이 많다.'],'Canyon Ring':['Canyon',5.6,18,'1:52.08','협곡 사이를 지나는 기술적인 코스.'],'Bayfront Circuit':['Bayfront',4.4,13,'1:39.85','만을 따라 달리는 고속 코스.'],'Seaside Circuit':['Seaside',5.0,17,'1:39.84','바닷바람의 영향이 큰 중고속 코스.'],'Apex Circuit':['APEX CITY',5.8,19,'1:49.12','팀의 홈 코스. 모든 속도 영역이 섞여 있다.'],'Mesa Raceway':['Mesa',4.6,14,'1:42.20','고원의 넓은 코스. 타이어 마모가 크다.'],'Pine Valley':['Pine Valley',5.1,16,'1:44.97','숲속 코스. 노면 변화가 심하다.'],'Northgate Ring':['Northgate',3.7,12,'1:31.40','짧은 북부 서킷. 폴 위치의 영향이 크다.'],'Coastal GP':['Coastal',4.9,15,'1:40.55','해안 도로를 이용한 고속 코스.'],'Fortress Circuit':['Fortress',5.4,17,'1:48.30','성곽 도시를 달리는 좁은 코스.'],'Grand Finale Speedway':['Grand Finale',6.5,21,'2:05.10','시즌 마지막 라운드. 가장 긴 코스.']};
+TH.igtc={rounds:[[1,'Forest Ring 12H','2026-03-21',3],[2,'Alpine 6H','2026-05-16',5],[3,'Coast 1000km','2026-07-04',2],[4,'Ardennes 24H','2026-09-19',8],[5,'Sakura 1000km','2026-11-14',null],[6,'Desert 6H','2026-12-12',null]],rv:[82,71,58,44,41,36,30,24,18,12,8]}; // [라운드,이름,날짜,TEAM_H 순위] SAMPLE
+TH.fleet=[];(function(){var F=TH.fleet,a=function(c,n,no,x,s){F.push([c,n,no,x,s])};
+ a('현역','Ferrari 499P','#73','Hypercar, Tenpest V10','ARC 출전');a('현역','Ferrari 499P','#78','Hypercar, Tenpest V10','ARC 출전');
+ a('현역','AMG GT3 EVO','#75','ARC GT3','ARC 출전');a('현역','AMG GT3 EVO','#76','ARC GT3','ARC 출전');a('현역','AMG GT3 EVO','TBA','IGTC GT3','IGTC 출전');
+ [['AMG GT3','2018'],['AMG GT3 EVO','2020'],['Porsche 963','2023'],['Ferrari 499P','2024'],['Ferrari 499P','2025']].forEach(function(x){['#73','#78'].forEach(function(n){a('보존',x[0],n,x[1]+'년 챔피언 시즌','보존 중')})});
+ for(var i=1;i<=6;i++)a('훈련','AMG GT3 훈련차','T'+i,'드라이버와 Junior 훈련','운용');
+ [['A','엔진 시험'],['B','변속기와 냉각 시험'],['C','전자제어 시험'],['D','에어로 시험'],['E','내구 시험']].forEach(function(x){a('테스트','ORECA 07 개발차','R&D-'+x[0],x[1],'개발 투입')});
+ for(var i=1;i<=6;i++)a('수송','대형 트랜스포터','TR'+i,'레이스카 수송','운용');
+ for(var i=1;i<=4;i++)a('수송','서비스 밴','VN'+i,'장비와 부품 수송','운용');
+ for(var i=1;i<=2;i++)a('수송','드라이버 셔틀','SH'+i,'인원 이동','운용')})(); // 총 38대

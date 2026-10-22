@@ -14,4 +14,8 @@
  T.full={hyper:H,cars:C,gt3:G};T.st={hyper:H.slice(0,5),cars:C.slice(0,5),gt3:G.slice(0,5)};
  var rk=function(a){for(var i=0;i<a.length;i++)if(a[i][0]=='TEAM_H')return i+1};
  T.standing={hyper:'Hypercar 컨스트럭터 '+rk(H)+'위',gt3:'GT3 컨스트럭터 '+rk(G)+'위'};
+var g=[['#75 TEAM_H',Math.round(T.gt3pts*.55)],['#76 TEAM_H',T.gt3pts-Math.round(T.gt3pts*.55)]];
+ T.gt3rv.forEach(function(r,i){var k=r[0],p=r[1],no=30+2*k;if(i<9){var a=Math.round(p*.55);g.push(['#'+no+' GT3 팀 '+k,a]);g.push(['#'+(no+1)+' GT3 팀 '+k,p-a])}else g.push(['#'+no+' GT3 팀 '+k,p])});
+ var ip=0;T.igtc.rounds.forEach(function(r){if(r[3])ip+=P[r[3]-1]||0});var I=[['TEAM_H (번호 TBA)',ip]];T.igtc.rv.forEach(function(p,i){I.push(['IGTC 팀 '+(i+1),p])});
+ [g,I].forEach(function(a){a.sort(function(x,y){return y[1]-x[1]})});T.full.gt3cars=g;T.full.igtc=I;
 })();
