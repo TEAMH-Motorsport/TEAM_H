@@ -5,15 +5,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+<link rel="stylesheet" href="css/style.css?v=5">
+<script src="js/data.js?v=5"></script><script src="js/records.js?v=5"></script><script src="js/common.js?v=5"></script>
 </head><body>
 <header id="hdr"></header>
 <main>
-<div class="pg"><div class="wrap"><h1>Racing</h1><p>ARC Hypercar와 GT3, 2026 시즌의 차량, 일정, 순위.</p></div></div>
+<div class="pg"><div class="wrap"><h1>Racing</h1><p>ARC Hypercar, ARC GT3, IGTC의 차량, 일정, 순위.</p></div></div>
 <section id="cars"><div class="wrap"><div class="sh"><h2>Cars</h2></div><div class="grid g3" id="carl"></div></div></section>
-<section id="calendar"><div class="wrap"><div class="sh"><h2>Calendar</h2></div><div id="cal"></div></div></section>
-<section id="standings"><div class="wrap"><div class="sh"><h2>Standings</h2></div><div class="grid g3" id="stl"></div></div></section>
+<section id="calendar"><div class="wrap"><div class="sh"><h2>Calendar</h2></div><div id="cal"></div><p style="color:var(--mute);margin-top:12px;font-size:14px">서킷 이름을 누르면 코스 정보와 결과를 볼 수 있다.</p>
+<div class="sh" style="margin-top:64px"><h2>Year at a Glance</h2></div><div class="opt"><span><i class="lg1"></i> ARC</span><span><i class="lg1 g"></i> IGTC</span></div><div class="yr" id="yr"></div></div></section>
+<section id="standings"><div class="wrap"><div class="sh"><h2>Standings</h2></div><div class="opt" id="stt"></div><div class="grid g2" id="stl"></div></div></section>
+<dialog id="cdlg"></dialog>
 </main>
 <footer id="ftr"></footer>
 <script>
@@ -22,8 +24,16 @@ var cars=[{n:'Ferrari 499P',c:'ARC Hypercar',no:'#73 / #78',f:'499p',r:[['엔진
  {n:'Mercedes-AMG GT3 EVO',c:'ARC GT3',no:'#75 / #76',f:'gt3-evo',r:[['엔진','6.2L V8 (M159), 550hp'],['타이틀','컨스트럭터 2회 (2024–2025)'],['드라이버','TBA']]},
  {n:'Mercedes-AMG GT3 EVO',c:'IGTC GT3',no:'TBA',f:'gt3-igtc',r:[['차량번호','TBA'],['드라이버','TBA'],['IGTC 성적','우승 3, 포디움 8']]}];
 $('carl').innerHTML=cars.map(function(x){return '<div class="card rv">'+ph('cars/'+x.f+'.jpg')+'<div class="no">'+x.no+'</div><h3>'+x.n+'</h3><p>'+x.c+'</p><dl>'+x.r.map(function(r){return '<dt>'+r[0]+'</dt><dd'+(r[1]=='TBA'?' class="tba"':'')+'>'+r[1]+'</dd>'}).join('')+'</dl></div>'}).join('');
-var rows=T.res26.map(function(r){var w=r[3]==1?'#73 TEAM_H':r[4]==1?'#78 TEAM_H':'다른 팀';return ['R'+r[0],r[1],r[2],'P'+r[3],'P'+r[4],w]}).concat(T.future.map(function(r){return ['R'+r[0],r[1],r[2],'-','-','-']}));
-$('cal').innerHTML=tbl(['라운드','서킷','날짜','#73','#78','우승'],rows);
-var F=T.full,rk=function(a,tm){return a.map(function(r,i){return [i+1,r[0],r[1],i?'-'+(a[0][1]-r[1]):'-']})};
-$('stl').innerHTML=tbl(['순위','팀','포인트','차이'],rk(F.hyper),'Hypercar 컨스트럭터')+tbl(['순위','차량','포인트','차이'],rk(F.cars),'Hypercar 차량')+tbl(['순위','팀','포인트','차이'],rk(F.gt3),'GT3 컨스트럭터');
+var all=T.res26.map(function(r){return{n:r[0],c:r[1],d:r[2],a:r[3],b:r[4],p:r[5]}}).concat(T.future.map(function(r){return{n:r[0],c:r[1],d:r[2]}}));
+$('cal').innerHTML='<div class="tw"><table class="tbl"><thead><tr><th>라운드</th><th>서킷</th><th>날짜</th><th>#73</th><th>#78</th><th>우승</th></tr></thead><tbody>'+all.map(function(r){return '<tr><td>R'+r.n+'</td><td><button class="lk" data-n="'+r.n+'">'+r.c+'</button></td><td>'+r.d+'</td><td>'+(r.a?'P'+r.a:'-')+'</td><td>'+(r.b?'P'+r.b:'-')+'</td><td>'+(r.a?(r.a==1?'#73 TEAM_H':r.b==1?'#78 TEAM_H':'다른 팀'):'-')+'</td></tr>'}).join('')+'</tbody></table></div>';
+$('cal').onclick=function(e){var b=e.target.closest('.lk');if(!b)return;var r=all[b.dataset.n-1],c=T.circ[r.c]||['-','-','-','-',''],d=$('cdlg'),s=r.c.toLowerCase().replace(/\s+/g,'-');
+ d.innerHTML='<button class="x" aria-label="닫기">×</button><h3>'+r.c+'</h3><p style="color:var(--lb)">Round '+r.n+', '+r.d+'</p><p style="margin:10px 0;color:#c9d0e2">'+c[4]+'</p><dl class="dl2"><dt>위치</dt><dd>'+c[0]+'</dd><dt>코스 길이</dt><dd>'+c[1]+' km</dd><dt>코너</dt><dd>'+c[2]+'개</dd><dt>랩 레코드</dt><dd>'+c[3]+'</dd>'+(r.a?'<dt>#73 결과</dt><dd>P'+r.a+'</dd><dt>#78 결과</dt><dd>P'+r.b+'</dd><dt>폴 포지션</dt><dd>#'+r.p+' TEAM_H</dd>':'<dt>상태</dt><dd>예정</dd>')+'</dl><p style="margin-top:16px"><a class="btn sub" href="files/circuit-'+s+'.pdf">서킷 공략집 PDF</a></p>';d.showModal();d.querySelector('.x').onclick=function(){d.close()}};
+var mo=[];for(var i=0;i<12;i++)mo.push([]);
+all.forEach(function(r){var m=+r.d.slice(5,7)-1;mo[m].push([+r.d.slice(8),'ARC R'+r.n+' '+r.c,0])});
+T.igtc.rounds.forEach(function(r){var m=+r[2].slice(5,7)-1;mo[m].push([+r[2].slice(8),'IGTC R'+r[0]+' '+r[1],1])});
+$('yr').innerHTML=mo.map(function(a,i){a.sort(function(x,y){return x[0]-y[0]});return '<div class="mo"><h4>'+(i+1)+'월</h4>'+(a.length?'<ul>'+a.map(function(e){return '<li><i class="'+(e[2]?'g':'')+'"></i><b>'+e[0]+'</b>'+e[1]+'</li>'}).join('')+'</ul>':'<p class="no2" style="font-size:13px">경기 없음</p>')+'</div>'}).join('');
+var F=T.full,rk=function(a){return a.map(function(r,i){return [i+1,r[0],r[1],i?'-'+(a[0][1]-r[1]):'-']})},H=['순위','팀','포인트','차이'],Hc=['순위','차량','포인트','차이'],
+ tabs={'ARC Hypercar':function(){return tbl(H,rk(F.hyper),'컨스트럭터')+tbl(Hc,rk(F.cars),'차량')},'ARC GT3':function(){return tbl(H,rk(F.gt3),'컨스트럭터')+tbl(Hc,rk(F.gt3cars),'차량')},'IGTC':function(){return tbl(H,rk(F.igtc),'컨스트럭터 (4라운드 후)')+tbl(['라운드','대회','날짜','TEAM_H'],T.igtc.rounds.map(function(r){return ['R'+r[0],r[1],r[2],r[3]?'P'+r[3]:'예정']}),'IGTC 일정')}},cur='ARC Hypercar';
+function st(){$('stt').innerHTML=Object.keys(tabs).map(function(k){return '<button'+(k==cur?' class="sel"':'')+'>'+k+'</button>'}).join('');$('stl').innerHTML=tabs[cur]()}
+st();$('stt').onclick=function(e){var b=e.target.closest('button');if(b){cur=b.textContent;st()}};
 </script></body></html>

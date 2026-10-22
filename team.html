@@ -5,8 +5,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="css/style.css">
-<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+<link rel="stylesheet" href="css/style.css?v=5">
+<script src="js/data.js?v=5"></script><script src="js/records.js?v=5"></script><script src="js/common.js?v=5"></script>
 </head><body>
 <header id="hdr"></header>
 <main>
@@ -18,9 +18,12 @@
 <div class="card rv"><h3>순환 개발</h3><p>레이스, 분석, 개발, 시험의 순환을 빠르게 돌린다. 결과가 다음 시즌의 차량을 만든다.</p></div>
 <div class="card rv"><h3>함께 이긴다</h3><p>드라이버, 엔지니어, 메카닉이 한 팀으로 움직인다. 챔피언십은 모두의 결과다.</p></div></div>
 <div class="grid g2" style="margin-top:20px"><div class="card rv"><h3>이현우</h3><p>대표</p></div><div class="card rv"><h3>노현호</h3><p>Team Principal</p></div></div></div></section>
-<section id="drivers"><div class="wrap"><div class="sh"><h2>Drivers</h2></div><div class="grid g4" id="drv"></div>
-<div class="grid g3" style="margin-top:20px" id="tba"></div></div></section>
-<section id="garage"><div class="wrap"><div class="sh"><h2>Garage</h2></div><div class="stats rv" id="fleet"></div></div></section>
+<section id="drivers"><div class="wrap"><div class="sh"><h2>Drivers</h2></div>
+<h3 class="sub3" style="margin-top:0">ARC Hypercar</h3><div class="grid g4" id="drv"></div>
+<h3 class="sub3">ARC GT3</h3><div class="grid g4" id="d2"></div>
+<h3 class="sub3">IGTC</h3><div class="grid g4" id="d3"></div>
+<p style="color:var(--mute);margin-top:24px;font-size:14px">리저브 드라이버 6명은 발표 예정이다.</p></div></section>
+<section id="garage"><div class="wrap"><div class="sh"><h2>Garage</h2></div><div class="stats rv" id="fleet"></div><div class="opt" id="gt" style="margin-top:36px"></div><div id="gv"></div></div></section>
 <section id="junior"><div class="wrap"><div class="sh"><h2>Junior Program</h2></div>
 <div class="grid g2"><div class="card rv"><h3>차세대 드라이버 육성</h3><p>2026년에 시작한 육성 프로그램. 훈련 차량과 시뮬레이터로 기본기를 쌓고, 선발된 드라이버는 리저브로 합류한다.</p></div>
 <div class="card rv"><h3>2027 선발</h3><p class="tba">일정과 선발 기준은 추후 발표한다.</p></div></div></div></section>
@@ -30,7 +33,9 @@
 var T=TH,$=function(i){return document.getElementById(i)};
 $('org').innerHTML=[[150,'전체 인원',''],[110,'엔지니어','POWERTRAINS 70명 포함'],[19,'드라이버',''],[21,'경영과 운영','']].map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span><em>'+x[2]+'</em></div>'}).join('');
 $('drv').innerHTML=T.drivers.map(function(d){return '<div class="drv rv" style="--c:'+d.c+';--t:'+d.t+'">'+ph('drivers/'+d.f+'.jpg')+'<em>'+d.no+'</em><h3>'+d.n+'</h3><p><strong>'+d.w+'승</strong>, 포디움 '+d.p+'회</p></div>'}).join('');
-$('tba').innerHTML=[['ARC GT3 #75 / #76','드라이버 발표 예정'],['IGTC GT3','번호와 드라이버 발표 예정'],['리저브 드라이버 6명','발표 예정']].map(function(x){return '<div class="card rv"><h3>'+x[0]+'</h3><p class="tba">'+x[1]+'</p></div>'}).join('');
+var tb=function(no,l){return '<div class="drv"><div class="ph" style="aspect-ratio:4/5"></div><em style="color:var(--mute)">'+no+'</em><h3 class="tba">TBA</h3><p>'+l+'</p></div>'};
+$('d2').innerHTML=tb(75,'ARC GT3 #75')+tb(76,'ARC GT3 #76');$('d3').innerHTML=tb('?','IGTC GT3 번호 미정');
 var fl=[['현역 레이스카',5,'499P 2대, GT3 EVO 2대, IGTC GT3 1대'],['보존 차량',10,'역대 레이스카'],['훈련 차량',6,'드라이버 훈련용'],['테스트 차량',5,'개발과 시험용'],['수송 차량',12,'레이스 데이 운영']];
+var gc='전체',gt=function(){$('gv').innerHTML=tbl(['분류','차량','번호','용도와 연식','상태'],T.fleet.filter(function(f){return gc=='전체'||f[0]==gc}))};$('gt').innerHTML=['전체','현역','보존','훈련','테스트','수송'].map(function(c,i){return '<button'+(i?'':' class="sel"')+'>'+c+'</button>'}).join('');$('gt').onclick=function(e){var b=e.target.closest('button');if(!b)return;gc=b.textContent;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x==b)});gt()};gt();
 $('fleet').innerHTML=fl.map(function(x){return '<div><b>'+x[1]+'</b><span>'+x[0]+'</span><em>'+x[2]+'</em></div>'}).join('');
 </script></body></html>
