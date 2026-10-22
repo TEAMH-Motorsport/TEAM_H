@@ -1,0 +1,17 @@
+/* 기록 자동 계산: data.js의 지난 시즌 기록과 2026 라운드 결과로 모든 합계와 순위를 만듭니다. */
+(function(){var T=TH,P=T.pts,c={73:{w:0,p:0,pl:T.base.poles[73],pts:0},78:{w:0,p:0,pl:T.base.poles[78],pts:0}},n={r:0,w:0,p:0};
+ T.hist.forEach(function(h){c[73].w+=h.a[0];c[73].p+=h.a[1];c[78].w+=h.b[0];c[78].p+=h.b[1];if(h.y>=2024){n.r+=15;n.w+=h.a[0]+h.b[0];n.p+=h.a[1]+h.b[1]}});
+ T.res26.forEach(function(r){[[73,r[3]],[78,r[4]]].forEach(function(x){var k=x[0],q=x[1];c[k].pts+=P[q-1]||0;if(q==1){c[k].w++;n.w++}if(q<=3){c[k].p++;n.p++}});c[r[5]].pl++;n.r++});
+ T.car=c;T.n499=n;
+ var W=c[73].w+c[78].w,Pd=c[73].p+c[78].p,Pl=c[73].pl+c[78].pl;
+ T.totals={w:W,p:Pd,pl:Pl};
+ T.stats=[[T.titles,'ARC 챔피언 타이틀'],[W,'ARC 통산 우승'],[Pd,'ARC 통산 포디움'],[Pl,'ARC 폴 포지션'],[150,'팀 인원']];
+ T.drivers.forEach(function(d){var e=T.extra[d.n];d.w=c[d.no].w+e[0];d.p=c[d.no].p+e[1]});
+ var H=[['TEAM_H',c[73].pts+c[78].pts]],C=[['#73 TEAM_H',c[73].pts],['#78 TEAM_H',c[78].pts]],G=[['TEAM_H',T.gt3pts]];
+ T.rv.forEach(function(p,i){var k=i+1,a=Math.round(p*.54);H.push(['팀 '+k,p]);C.push(['#'+(9+2*k)+' 팀 '+k,a]);C.push(['#'+(10+2*k)+' 팀 '+k,p-a])});
+ T.gt3rv.forEach(function(r){G.push(['GT3 팀 '+r[0],r[1]])});
+ [H,C,G].forEach(function(a){a.sort(function(x,y){return y[1]-x[1]})});
+ T.full={hyper:H,cars:C,gt3:G};T.st={hyper:H.slice(0,5),cars:C.slice(0,5),gt3:G.slice(0,5)};
+ var rk=function(a){for(var i=0;i<a.length;i++)if(a[i][0]=='TEAM_H')return i+1};
+ T.standing={hyper:'Hypercar 컨스트럭터 '+rk(H)+'위',gt3:'GT3 컨스트럭터 '+rk(G)+'위'};
+})();

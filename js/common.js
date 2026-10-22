@@ -32,6 +32,7 @@
   MENU.map(function(c){return '<div><h4>'+c[0]+'</h4>'+c[1].map(A).join('')+'</div>'}).join('')+'<div><h4>TEAM_H</h4>'+util+'</div><p class="cp">© TEAM_H. 가상으로 만든 레이싱팀 프로젝트입니다.</p></div>'}
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+ window.tbl=function(head,rows,cap){return '<div class="tw"><table class="tbl">'+(cap?'<caption>'+cap+'</caption>':'')+'<thead><tr>'+head.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr'+(/TEAM_H/.test(r.join(' '))?' class="hl"':'')+'>'+r.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>'};
  window.ph=function(file,cls,ratio){return '<div class="ph '+(cls||'')+'" data-file="images/'+file+'"'+(ratio?' style="aspect-ratio:'+ratio+'"':'')+'><img src="images/'+file+'" alt="" loading="lazy" onerror="this.remove()"></div>'};
  window.logoImg=function(name){var s=name.toLowerCase().replace(/\s+/g,'-');return '<div><img src="images/partners/'+s+'.png" alt="'+name+'" onerror="this.outerHTML=\'<span>'+name+'</span>\'"></div>'};
  document.addEventListener('DOMContentLoaded',function(){
