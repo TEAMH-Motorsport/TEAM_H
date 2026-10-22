@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Team Store — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>Team Store</h1><p>TEAM_H 공식 굿즈. 가상 스토어라 결제는 되지 않는다.</p></div></div>
+<section><div class="wrap"><div class="sbar"><div class="opt" id="ct"></div><button class="btn" id="cb">장바구니 <span id="cc">0</span></button></div><div class="grid g4" id="gd"></div></div></section>
+<dialog id="pd"></dialog><dialog id="cd"></dialog>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,$=function(i){return document.getElementById(i)},G=T.goods,cats=['전체','의류','액세서리','모형','디지털'],cat='전체',
+ls=function(k,d){try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},sv=function(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},
+won=function(n){return n?n.toLocaleString('ko-KR')+'원':'무료'},cart=ls('th_cart',{}),fd=function(id){return G.filter(function(g){return g.id==id})[0]};
+function cnt(){var n=0;for(var k in cart)n+=cart[k];$('cc').textContent=n}
+function save(){sv('th_cart',cart);cnt()}
+$('ct').innerHTML=cats.map(function(c,i){return '<button'+(i?'':' class="sel"')+'>'+c+'</button>'}).join('');
+function grid(){$('gd').innerHTML=G.filter(function(g){return cat=='전체'||g.c==cat}).map(function(g){return '<div class="pc rv" data-id="'+g.id+'" tabindex="0">'+ph('store/'+g.f+'.jpg','','1/1')+'<small>'+g.c+(g.o?' · 품절':'')+'</small><h3>'+g.n+'</h3><b>'+won(g.p)+'</b></div>'}).join('');document.querySelectorAll('.pc').forEach(function(e){e.classList.add('in')})}
+$('ct').onclick=function(e){var b=e.target.closest('button');if(!b)return;cat=b.textContent;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x==b)});grid()};
+function open2(g){var d=$('pd');d.innerHTML='<button class="x" aria-label="닫기">×</button>'+ph('store/'+g.f+'.jpg','','1/1')+'<h3 style="margin-top:16px">'+g.n+'</h3><p style="color:#c9d0e2;margin:8px 0">'+g.d+'</p><b style="font-size:22px">'+won(g.p)+'</b>'+(g.s?'<div class="opt" id="sz">'+['S','M','L','XL'].map(function(s,i){return '<button'+(i==1?' class="sel"':'')+'>'+s+'</button>'}).join('')+'</div>':'<div style="height:14px"></div>')+'<button class="btn" id="add"'+(g.o?' disabled':'')+'>'+(g.o?'품절':'장바구니에 담기')+'</button>';
+ d.showModal();d.querySelector('.x').onclick=function(){d.close()};
+ var z=$('sz');if(z)z.onclick=function(e){var b=e.target.closest('button');if(!b)return;z.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x==b)})};
+ $('add').onclick=function(){var k=g.id+(g.s?'|'+d.querySelector('#sz .sel').textContent:'');cart[k]=(cart[k]||0)+1;save();d.close()}}
+$('gd').onclick=function(e){var c=e.target.closest('.pc');if(c)open2(fd(c.dataset.id))};
+$('gd').onkeydown=function(e){if(e.key=='Enter'){var c=e.target.closest('.pc');if(c)open2(fd(c.dataset.id))}};
+function cartUI(msg){var d=$('cd'),h='<button class="x" aria-label="닫기">×</button><h3>장바구니</h3>',tot=0,keys=Object.keys(cart);
+ if(msg)h+='<p class="ok">'+msg+'</p>';
+ if(!keys.length&&!msg)h+='<p style="color:var(--mute);margin-top:12px">담긴 상품이 없다.</p>';
+ keys.forEach(function(k){var a=k.split('|'),g=fd(a[0]);if(!g)return;tot+=g.p*cart[k];h+='<div class="ci"><div><b>'+g.n+'</b>'+(a[1]?' ('+a[1]+')':'')+'<br><span>'+won(g.p)+'</span></div><div class="q"><button data-k="'+k+'" data-d="-1">-</button>'+cart[k]+'<button data-k="'+k+'" data-d="1">+</button></div></div>'});
+ if(keys.length)h+='<p style="margin:16px 0;font-size:20px">합계 <b>'+won(tot)+'</b></p><form class="fm" id="of"><label>이름</label><input name="n" required><label>배송지</label><input name="a" required><button class="btn">주문하기 (가상)</button></form>';
+ d.innerHTML=h;d.querySelector('.x').onclick=function(){d.close()};
+ var f=$('of');if(f)f.onsubmit=function(e){e.preventDefault();var o=ls('th_orders',[]),no='TH-'+String(Date.now()).slice(-6);o.push({no:no,t:new Date().toISOString(),n:f.n.value,items:cart,total:tot});sv('th_orders',o);cart={};save();cartUI('주문이 완료됐습니다. 주문번호 '+no+' (가상 주문이라 결제되지 않습니다)')}}
+$('cd').onclick=function(e){var b=e.target.closest('[data-k]');if(!b)return;var k=b.dataset.k;cart[k]+=+b.dataset.d;if(cart[k]<1)delete cart[k];save();cartUI()};
+$('cb').onclick=function(){cartUI();$('cd').showModal()};
+cnt();grid();
+</script></body></html>
