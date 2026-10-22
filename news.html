@@ -15,5 +15,5 @@
 <footer id="ftr"></footer>
 <script>
 var T=TH,$=function(i){return document.getElementById(i)};
-$('nl').innerHTML=T.news.map(function(n){return '<details class="nw rv"><summary><time>'+n.d+'</time><em>'+n.c+'</em><h3>'+n.t+'</h3></summary>'+'<div class="ni">'+ph('news/'+n.f+'.jpg','','16/9')+'</div>'+'<p>'+n.b+'</p></details>'}).join('');
+$('nl').innerHTML=T.news.map(function(n){return '<details class="nw rv"><summary><time>'+n.d+'</time><em>'+n.c+'</em><h3>'+n.t+'</h3></summary>'+'<div class="ni">'+ph('news/'+n.f+'.jpg','','16/9')+'</div>'+'<p>'+[n.b].concat(n.x||[]).join('</p><p>')+'</p></details>'}).join('');
 </script></body></html>

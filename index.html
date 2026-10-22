@@ -23,6 +23,7 @@
  <a href="engineering.html"><div class="ph" data-file="images/link-engineering.jpg"><img src="images/link-engineering.jpg" alt="" onerror="this.remove()"></div><div><h3>Engineering</h3><p>엔진, 파워트레인, 차량 개발</p></div></a></div></div></section>
 <section><div class="wrap"><div class="sh"><h2>Drivers</h2><a href="team.html">The Team 보기</a></div><div class="grid g4" id="drv"></div></div></section>
 <section><div class="wrap"><div class="sh"><h2>News</h2><a href="news.html">뉴스 전체 보기</a></div><div class="grid g3 news" id="news"></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>Stories</h2><a href="stories.html">스토리 전체 보기</a></div><div class="grid g3 news" id="sty"></div></div></section>
 <section><div class="wrap"><div class="sh"><h2>Partners</h2><a href="partners.html">Partners & Future</a></div><div class="pl" id="pl"></div></div></section>
 </main>
 <footer id="ftr"></footer>
@@ -31,6 +32,7 @@
  $('prog').innerHTML=T.programs.map(function(p){return '<div class="card rv"><h3>'+p.t+'</h3><p>'+p.d+'</p><dl>'+p.r.map(function(r){return '<dt>'+r[0]+'</dt><dd'+(r[1]=='TBA'?' class="tba"':'')+'>'+r[1]+'</dd>'}).join('')+'</dl></div>'}).join('');
  $('drv').innerHTML=T.drivers.map(function(d){return '<div class="drv rv" style="--c:'+d.c+';--t:'+d.t+'">'+ph('drivers/'+d.f+'.jpg')+'<em>'+d.no+'</em><h3>'+d.n+'</h3><p><strong>'+d.w+'승</strong> · 포디움 '+d.p+'회</p></div>'}).join('');
  $('news').innerHTML=T.news.slice(0,3).map(function(n){return '<a href="news.html" class="rv">'+ph('news/'+n.f+'.jpg','','16/9')+'<time>'+n.d+'</time><h3>'+n.t+'</h3></a>'}).join('');
+ $('sty').innerHTML=T.stories.slice(0,3).map(function(s){return '<a href="stories.html#'+s.id+'" class="rv">'+ph('stories/'+s.f+'.jpg','','16/9')+'<time>'+s.c+', '+s.who+'</time><h3>'+s.t+'</h3></a>'}).join('');
  $('pl').innerHTML=T.partners.map(logoImg).join('');
  var st=$('stats');st.innerHTML=T.stats.map(function(s){return '<div><b data-n="'+s[0]+'">'+s[0]+'</b><span>'+s[1]+'</span></div>'}).join('');
  if(!matchMedia('(prefers-reduced-motion:reduce)').matches){var io=new IntersectionObserver(function(e){if(!e[0].isIntersecting)return;io.disconnect();st.querySelectorAll('b').forEach(function(b){var n=+b.dataset.n,t0=performance.now();(function f(t){var p=Math.min((t-t0)/1100,1);b.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)})});io.observe(st)}

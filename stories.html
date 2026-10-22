@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Stories — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css?v=5">
+<script src="js/data.js?v=5"></script><script src="js/records.js?v=5"></script><script src="js/common.js?v=5"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>Stories</h1><p>드라이버와 팀원의 인터뷰, 그리고 TEAM_H의 이야기.</p></div></div><section><div class="wrap"><div class="opt" id="sf"></div><div class="grid g3 news" id="sl"></div></div></section><dialog id="sd" class="wide"></dialog>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,$=function(i){return document.getElementById(i)},cat='전체';
+$('sf').innerHTML=['전체','Interview','Team','Feature'].map(function(c,i){return '<button'+(i?'':' class="sel"')+'>'+c+'</button>'}).join('');
+function g(){$('sl').innerHTML=T.stories.filter(function(s){return cat=='전체'||s.c==cat}).map(function(s){return '<a href="#" class="rv in" data-id="'+s.id+'">'+ph('stories/'+s.f+'.jpg','','16/9')+'<time>'+s.c+', '+s.who+'</time><h3>'+s.t+'</h3></a>'}).join('')}
+g();$('sf').onclick=function(e){var b=e.target.closest('button');if(!b)return;cat=b.textContent;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x==b)});g()};
+function open2(id){var s=T.stories.filter(function(x){return x.id==id})[0],d=$('sd');
+ d.innerHTML='<button class="x" aria-label="닫기">×</button><p style="color:var(--lb);font-size:14px">'+s.c+'</p><h3 style="font-size:40px;margin:6px 0">'+s.t+'</h3><p style="color:var(--mute);margin-bottom:16px">'+s.who+', '+s.role+'</p>'+ph('stories/'+s.f+'.jpg','','16/9')+'<p style="margin:18px 0;font-size:17px;color:#fff">'+s.s+'</p>'+(s.q?s.q.map(function(q){return '<h4 class="qh">'+q[0]+'</h4><p style="color:#c9d0e2;margin-bottom:14px">'+q[1]+'</p>'}).join(''):s.p.map(function(p){return '<p style="color:#c9d0e2;margin-bottom:14px">'+p+'</p>'}).join(''));
+ d.showModal();d.querySelector('.x').onclick=function(){d.close()}}
+$('sl').onclick=function(e){var a=e.target.closest('a');if(a){e.preventDefault();open2(a.dataset.id)}};
+if(location.hash.length>1&&T.stories.some(function(s){return s.id==location.hash.slice(1)}))open2(location.hash.slice(1));
+</script></body></html>
