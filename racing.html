@@ -20,8 +20,8 @@
 <footer id="ftr"></footer>
 <script>
 var T=TH,$=function(i){return document.getElementById(i)},n=T.n499;
-var cars=[{n:'Ferrari 499P',c:'ARC Hypercar',no:'#73 / #78',f:'499p',r:[['엔진','Tenpest 3.5L V10 NA, 700hp'],['출전',n.r+'경기 (2024년부터)'],['우승',n.w],['포디움',n.p]]},
- {n:'Mercedes-AMG GT3 EVO',c:'ARC GT3',no:'#75 / #76',f:'gt3-evo',r:[['엔진','6.2L V8 (M159), 550hp'],['타이틀','컨스트럭터 2회 (2024–2025)'],['드라이버','TBA']]},
+var cars=[{n:'Ferrari 499P',c:'ARC Hypercar',no:'#73 / #78',f:'ferrari-499p',r:[['엔진','Tenpest 3.5L V10 NA, 700hp'],['출전',n.r+'경기 (2024년부터)'],['우승',n.w],['포디움',n.p]]},
+ {n:'Mercedes-AMG GT3 EVO',c:'ARC GT3',no:'#75 / #76',f:'amg-gt3-evo',r:[['엔진','6.2L V8 (M159), 550hp'],['타이틀','컨스트럭터 2회 (2024–2025)'],['드라이버','TBA']]},
  {n:'Mercedes-AMG GT3 EVO',c:'IGTC GT3',no:'TBA',f:'gt3-igtc',r:[['차량번호','TBA'],['드라이버','TBA'],['IGTC 성적','우승 3, 포디움 8']]}];
 $('carl').innerHTML=cars.map(function(x){return '<div class="card rv">'+ph('cars/'+x.f+'.jpg')+'<div class="no">'+x.no+'</div><h3>'+x.n+'</h3><p>'+x.c+'</p><dl>'+x.r.map(function(r){return '<dt>'+r[0]+'</dt><dd'+(r[1]=='TBA'?' class="tba"':'')+'>'+r[1]+'</dd>'}).join('')+'</dl></div>'}).join('');
 var all=T.res26.map(function(r){return{n:r[0],c:r[1],d:r[2],a:r[3],b:r[4],p:r[5]}}).concat(T.future.map(function(r){return{n:r[0],c:r[1],d:r[2]}}));
