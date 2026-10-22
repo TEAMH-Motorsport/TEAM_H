@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>History &amp; Results — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>History &amp; Results</h1><p>2017년 창단부터 2026년 현재까지의 기록.</p></div></div>
+<section id="timeline"><div class="wrap"><div class="sh"><h2>Timeline</h2></div><div class="grid g4" id="eras"></div><div class="tl" id="tl" style="margin-top:48px"></div></div></section>
+<section id="results"><div class="wrap"><div class="sh"><h2>Results</h2></div><div class="bars rv" id="wb"></div><div id="rt" style="margin-top:36px"></div></div></section>
+<section id="championships"><div class="wrap"><div class="sh"><h2>Championships</h2></div><div class="stats s4 rv" id="ch"></div><div class="chips rv" id="chy"></div></div></section>
+<section id="heritage"><div class="wrap"><div class="sh"><h2>Heritage Cars</h2></div><div class="grid g2" id="her"></div>
+<p style="color:#c9d0e2;margin-top:20px">역대 챔피언 차량 10대는 지금도 보존하고 있다.</p></div></section>
+<section id="project-h"><div class="wrap"><div class="sh"><h2>Project H</h2></div><div class="card rv" id="ph2"></div></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,$=function(i){return document.getElementById(i)},R=[];
+T.hist.forEach(function(h){R.push({y:h.y,w:h.a[0]+h.b[0],p:h.a[1]+h.b[1],a:h.a,b:h.b})});
+var s=T.car;R.push({y:2026,w:s[73].w+s[78].w-R.reduce(function(a,r){return a+(r.y<2026?0:0)},0),p:0,a:null,b:null});
+var r26=T.res26.reduce(function(o,r){[r[3],r[4]].forEach(function(q,i){if(q==1)o.w++;if(q<=3)o.p++;if(q==1)o['w'+i]++;if(q<=3)o['p'+i]++});return o},{w:0,p:0,w0:0,w1:0,p0:0,p1:0});
+R[R.length-1]={y:2026,w:r26.w,p:r26.p,a:[r26.w0,r26.p0],b:[r26.w1,r26.p1],n:T.res26.length};
+var by={};R.forEach(function(r){by[r.y]=r});
+$('eras').innerHTML=T.eras.map(function(e){return '<div class="card rv"><div class="no" style="font-size:30px">'+e[0]+'</div><h3 style="margin-top:8px">'+e[1]+'</h3><p>'+e[2]+'</p></div>'}).join('');
+$('tl').innerHTML=T.years.map(function(y){var r=by[y[0]],rec=r?r.w+'승, 포디움 '+r.p+(r.n?' ('+r.n+'라운드 후)':''):'1승, 포디움 3';return '<div class="rv"><b>'+y[0]+'</b><div><h3>'+y[2]+'</h3><p class="m">'+y[1]+', '+rec+'</p><p>'+y[3]+'</p></div></div>'}).join('');
+$('wb').innerHTML='<h3>시즌별 우승 수</h3>'+R.map(function(r){return '<div class="bar"><span>'+r.y+'</span><div><i style="width:'+Math.round(r.w/15*100)+'%"></i></div><b>'+r.w+'승</b></div>'}).join('')+'<small>ARC 최상위 프로그램 기준, 2026년은 진행 중</small>';
+var tt=T.titles_y=[2018,2019,2020,2021,2023,2024,2025];
+$('rt').innerHTML=tbl(['연도','대회','우승','포디움','73번','78번','타이틀'],T.years.map(function(y){var r=by[y[0]];return r?[y[0],y[1],r.w,r.p,r.a[0]+'승 '+r.a[1]+'P',r.b[0]+'승 '+r.b[1]+'P',tt.indexOf(y[0])>=0?'드라이버·컨스트럭터':(y[0]==2026?'진행 중':'-')]:[y[0],y[1],1,3,'-','-','Spa 24시간 우승']}));
+$('ch').innerHTML=[[T.titles,'ARC 챔피언 타이틀','드라이버와 컨스트럭터 동시'],[T.totals.w,'ARC 통산 우승',''],[T.totals.p,'ARC 통산 포디움',''],[3,'IGTC 우승','2022 Spa 24시간 포함']].map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span><em>'+x[2]+'</em></div>'}).join('');
+$('chy').innerHTML=tt.map(function(y){return '<span>'+y+'</span>'}).join('');
+$('her').innerHTML=T.heritage.map(function(h){var w=0,p=0,rc=0;h[3].forEach(function(y){var r=by[y];w+=r.w;p+=r.p;rc+=r.n||15});return '<div class="card rv">'+ph('cars/'+h[0].toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.jpg')+'<h3>'+h[0]+'</h3><p>'+h[5]+'</p><dl><dt>제조사</dt><dd>'+h[1]+'</dd><dt>사용 기간</dt><dd>'+h[2]+'</dd><dt>ARC 기록</dt><dd>'+rc+'경기 '+w+'승 '+p+'포디움</dd><dt>사양</dt><dd>'+h[4]+'</dd></dl></div>'}).join('');
+var P=T.projectH;$('ph2').innerHTML='<h3>'+P.t+'</h3><dl><dt>연도</dt><dd>'+P.y+'</dd><dt>차량</dt><dd>'+P.car+'</dd><dt>결과</dt><dd>'+P.res+'</dd><dt>목적</dt><dd>'+P.why+'</dd><dt>얻은 것</dt><dd>'+P.got+'</dd></dl>';
+</script></body></html>
