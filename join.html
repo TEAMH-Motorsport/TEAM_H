@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Join Us — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>Join Us</h1><p>TEAM_H와 함께 일할 사람을 찾는다.</p></div></div>
+<section><div class="wrap"><div class="sh"><h2>Open Roles</h2></div><div class="grid g3" id="jb"></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>Apply</h2></div><div class="card rv" style="max-width:640px"><form class="fm" id="af"><label>이름</label><input name="name" required><label>이메일</label><input name="email" type="email" required><label>지원 직무</label><select name="role" id="rl"></select><label>내용</label><textarea name="msg" rows="4" required></textarea><button class="btn">보내기</button><p class="ok" aria-live="polite"></p></form></div></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,$=function(i){return document.getElementById(i)};
+$('jb').innerHTML=T.jobs.map(function(j){return '<div class="card rv"><h3 style="font-size:26px">'+j[0]+'</h3><p>'+j[1]+'</p></div>'}).join('');
+$('rl').innerHTML=T.jobs.map(function(j){return '<option>'+j[0]+'</option>'}).join('');
+formSave('af','th_apply','지원이 접수됐습니다. 가상 사이트라 실제로는 전송되지 않고 이 브라우저에만 저장됩니다.');
+</script></body></html>

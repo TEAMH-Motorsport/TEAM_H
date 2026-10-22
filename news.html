@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>News — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>News</h1><p>경기 리포트와 팀 소식.</p></div></div><section><div class="wrap" id="nl"></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,$=function(i){return document.getElementById(i)};
+$('nl').innerHTML=T.news.map(function(n){return '<details class="nw rv"><summary><time>'+n.d+'</time><em>'+n.c+'</em><h3>'+n.t+'</h3></summary>'+'<div class="ni">'+ph('news/'+n.f+'.jpg','','16/9')+'</div>'+'<p>'+n.b+'</p></details>'}).join('');
+</script></body></html>

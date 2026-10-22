@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TEAM_H — Engineering the Victory</title>
+<meta name="description" content="TEAM_H 공식 사이트. 독립 컨스트럭터, ARC Hypercar와 GT3 프로그램.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="hero"><div class="ph" data-file="images/hero.jpg"><img src="images/hero.jpg" alt="" onerror="this.remove()"></div>
+ <div class="wrap"><h1><span>Engineering</span><span>the Victory</span></h1>
+ <p>2017년 창단한 독립 컨스트럭터. 레이스에 나가고, 엔진과 차량을 직접 개발한다.</p>
+ <div class="cta"><a class="btn" href="racing.html">Racing 보기</a><a class="btn sub" href="engineering.html">Engineering 보기</a></div></div></div>
+<div class="strip" id="strip"></div>
+<section><div class="wrap"><div class="sh"><h2>Record</h2></div><div class="stats rv" id="stats"></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>Programs</h2><a href="racing.html">Racing 전체 보기</a></div><div class="grid g3" id="prog"></div></div></section>
+<section><div class="wrap"><div class="links rv">
+ <a href="racing.html"><div class="ph" data-file="images/link-racing.jpg"><img src="images/link-racing.jpg" alt="" onerror="this.remove()"></div><div><h3>Racing</h3><p>일정, 결과, 챔피언십 현황</p></div></a>
+ <a href="engineering.html"><div class="ph" data-file="images/link-engineering.jpg"><img src="images/link-engineering.jpg" alt="" onerror="this.remove()"></div><div><h3>Engineering</h3><p>엔진, 파워트레인, 차량 개발</p></div></a></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>Drivers</h2><a href="team.html">The Team 보기</a></div><div class="grid g4" id="drv"></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>News</h2><a href="news.html">뉴스 전체 보기</a></div><div class="grid g3 news" id="news"></div></div></section>
+<section><div class="wrap"><div class="sh"><h2>Partners</h2><a href="partners.html">Partners & Future</a></div><div class="pl" id="pl"></div></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+(function(){var $=function(i){return document.getElementById(i)},T=TH;
+ $('prog').innerHTML=T.programs.map(function(p){return '<div class="card rv"><h3>'+p.t+'</h3><p>'+p.d+'</p><dl>'+p.r.map(function(r){return '<dt>'+r[0]+'</dt><dd'+(r[1]=='TBA'?' class="tba"':'')+'>'+r[1]+'</dd>'}).join('')+'</dl></div>'}).join('');
+ $('drv').innerHTML=T.drivers.map(function(d){return '<div class="drv rv" style="--c:'+d.c+';--t:'+d.t+'">'+ph('drivers/'+d.f+'.jpg')+'<em>'+d.no+'</em><h3>'+d.n+'</h3><p><strong>'+d.w+'승</strong> · 포디움 '+d.p+'회</p></div>'}).join('');
+ $('news').innerHTML=T.news.slice(0,3).map(function(n){return '<a href="news.html" class="rv">'+ph('news/'+n.f+'.jpg','','16/9')+'<time>'+n.d+'</time><h3>'+n.t+'</h3></a>'}).join('');
+ $('pl').innerHTML=T.partners.map(logoImg).join('');
+ var st=$('stats');st.innerHTML=T.stats.map(function(s){return '<div><b data-n="'+s[0]+'">'+s[0]+'</b><span>'+s[1]+'</span></div>'}).join('');
+ if(!matchMedia('(prefers-reduced-motion:reduce)').matches){var io=new IntersectionObserver(function(e){if(!e[0].isIntersecting)return;io.disconnect();st.querySelectorAll('b').forEach(function(b){var n=+b.dataset.n,t0=performance.now();(function f(t){var p=Math.min((t-t0)/1100,1);b.textContent=Math.round(n*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f)})(t0)})});io.observe(st)}
+ var s=$('strip'),tab='next',L=[['now','Now'],['next','Next'],['latest','Latest'],['st','Standings']];
+ s.innerHTML='<div class="wrap"><div class="tabs" role="tablist" aria-label="경기 정보">'+L.map(function(t){return '<button role="tab" data-t="'+t[0]+'" aria-selected="'+(t[0]==tab)+'">'+t[1]+'</button>'}).join('')+'</div><div class="tc" aria-live="polite"></div><div class="tt"></div></div><div class="pn"><div class="wrap" id="pw"></div></div>';
+ var tc=s.querySelector('.tc'),tt=s.querySelector('.tt'),pw=$('pw'),bs=s.querySelectorAll('button'),p2=function(x){return('0'+x).slice(-2)};
+ function tb(h,rows,k){return '<table><caption>'+h+'</caption>'+rows.map(function(r,i){var hl=/TEAM_H/.test(r.join(' '));return '<tr'+(hl?' class="hl"':'')+'><td>'+(k?(i+1):r[0])+'</td><td>'+(k?r[0]:r[1]+' '+r[2])+'</td><td>'+(k?r[1]+'점':r[3])+'</td></tr>'}).join('')+'</table>'}
+ function gap(a){return a.map(function(r,i){return [r[0],r[1]]})}
+ function panel(){var r=T.r8,st=T.st;
+  if(tab=='latest')return '<div><h4>Round '+T.last.round+'</h4><dl><dt>서킷</dt><dd>'+r.circuit+'</dd><dt>날짜</dt><dd>'+r.date+'</dd><dt>폴 포지션</dt><dd>'+r.pole+'</dd><dt>패스티스트 랩</dt><dd>'+r.fl+'</dd></dl></div>'+tb('Hypercar 결과',r.hyper)+tb('GT3 결과',r.gt3);
+  if(tab=='st')return tb('Hypercar 컨스트럭터',st.hyper,1)+tb('Hypercar 차량',st.cars,1)+tb('GT3 컨스트럭터',st.gt3,1);
+  if(tab=='next')return '<div><h4>Round '+T.next.round+' / '+T.rounds+'</h4><dl><dt>서킷</dt><dd>'+T.next.circuit+'</dd><dt>일정</dt><dd>'+T.next.date.slice(0,10)+' '+T.next.date.slice(11,16)+' KST</dd><dt>남은 라운드</dt><dd>'+(T.rounds-T.last.round)+'</dd></dl></div>';
+  return '<div><h4>2026 시즌</h4><dl><dt>진행</dt><dd>'+T.last.round+' / '+T.rounds+' 라운드</dd><dt>Hypercar</dt><dd>'+T.standing.hyper+'</dd><dt>GT3</dt><dd>'+T.standing.gt3+'</dd></dl></div>'}
+ function upd(){var ms=new Date(T.next.date)-Date.now(),cd='D-'+Math.max(0,Math.floor(ms/864e5))+' '+p2(Math.max(0,Math.floor(ms/36e5)%24))+':'+p2(Math.max(0,Math.floor(ms/6e4)%60));
+  var kst=new Date().toLocaleTimeString('en-GB',{timeZone:'Asia/Seoul',hour:'2-digit',minute:'2-digit'})+' KST';
+  var m={now:[T.now,kst],next:['Round '+T.next.round+', '+T.next.circuit,cd],latest:['Round '+T.last.round+' 결과: '+T.last.text,''],st:[T.standing.hyper+', '+T.standing.gt3,'']}[tab];tc.textContent=m[0];tt.textContent=m[1]}
+ function draw(){upd();pw.innerHTML=panel()}
+ bs.forEach(function(b){b.onclick=function(){tab=b.dataset.t;bs.forEach(function(x){x.setAttribute('aria-selected',x==b)});draw()}});
+ draw();setInterval(upd,3e4)})();
+</script></body></html>

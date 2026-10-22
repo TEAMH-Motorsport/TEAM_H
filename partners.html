@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Partners &amp; Future — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>Partners &amp; Future</h1><p>함께 만드는 파트너들과 TEAM_H가 가려는 길.</p></div></div>
+<section id="partners"><div class="wrap"><div class="sh"><h2>Partners</h2></div><div id="tiers"></div></div></section>
+<section id="future"><div class="wrap"><div class="sh"><h2>Road to WEC</h2></div><div class="tl" id="road"></div><div class="grid g3" id="plans" style="margin-top:40px"></div>
+<div class="sh" style="margin-top:56px"><h2>Vision</h2></div><div class="card rv" id="vis"></div></div></section>
+<section id="sponsorship"><div class="wrap"><div class="sh"><h2>Sponsorship</h2></div><div class="grid g2"><div class="card rv"><h3>함께하실 파트너를 찾습니다</h3><p>TEAM_H의 레이스와 개발 프로그램에 함께할 파트너의 문의를 받는다. 제안서에서 프로그램과 협업 방식을 볼 수 있다.</p><p style="margin-top:20px"><a class="btn" href="files/sponsorship.pdf">제안서 PDF 받기</a></p></div>
+<div class="card rv"><form class="fm" id="sf"><label>이름</label><input name="name" required><label>이메일</label><input name="email" type="email" required><label>회사명</label><input name="co"><label>내용</label><textarea name="msg" rows="4" required></textarea><button class="btn">보내기</button><p class="ok" aria-live="polite"></p></form></div></div></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,$=function(i){return document.getElementById(i)};
+$('tiers').innerHTML=T.tiers.map(function(t){return '<h3 class="sub3">'+t[0]+'</h3><div class="grid g3">'+t[1].map(function(p){return '<div class="tile">'+logoImg(p[0])+'<p>'+p[1]+'</p></div>'}).join('')+'</div>'}).join('');
+$('road').innerHTML=T.road.map(function(r){return '<div class="rv"><b>'+r[0]+'</b><div><p style="color:#fff">'+r[1]+'</p></div></div>'}).join('');
+$('plans').innerHTML=T.plans.map(function(p){return '<div class="card rv"><h3>'+p[0]+'</h3><p>'+p[1]+'</p></div>'}).join('');
+$('vis').innerHTML='<p style="font-size:18px;max-width:46em;color:#fff">'+T.vision+'</p>';
+formSave('sf','th_sponsor','문의가 접수됐습니다. 가상 사이트라 실제로는 전송되지 않고 이 브라우저에만 저장됩니다.');
+</script></body></html>

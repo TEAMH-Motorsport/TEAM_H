@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gallery — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css">
+<script src="js/data.js"></script><script src="js/records.js"></script><script src="js/common.js"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>Gallery</h1><p>레이스 데이 사진과 영상, 자료실.</p></div></div>
+<section id="gallery"><div class="wrap"><div class="sh"><h2>Race Day</h2></div><div class="opt" id="gf"></div><div class="gl" id="gl"></div>
+<div class="sh" style="margin-top:64px"><h2>Videos</h2></div><div class="grid g3" id="vd"></div></div></section>
+<section id="resources"><div class="wrap"><div class="sh"><h2>Resources</h2></div><div class="rows" id="rs"></div></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,$=function(i){return document.getElementById(i)};
+var rr=T.res26.slice(-3).reverse(),cur=0;
+$('gf').innerHTML=['전체'].concat(rr.map(function(r){return 'R'+r[0]+' '+r[1]})).map(function(x,i){return '<button data-i="'+i+'"'+(i?'':' class="sel"')+'>'+x+'</button>'}).join('');
+function g(){var h='';rr.forEach(function(r,k){if(cur&&cur!=k+1)return;for(var i=1;i<=6;i++){var f='gallery/r'+r[0]+'-'+i+'.jpg';h+='<a href="images/'+f+'" target="_blank" rel="noopener">'+ph(f)+'</a>'}});$('gl').innerHTML=h}
+g();$('gf').onclick=function(e){var b=e.target.closest('button');if(!b)return;cur=+b.dataset.i;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x==b)});g()};
+$('vd').innerHTML=['R8 하이라이트','Tenpest 사운드','Pit Stop 모음'].map(function(v,i){return '<div class="rv">'+ph('gallery/video-'+(i+1)+'.jpg','','16/9')+'<p style="margin-top:8px">'+v+'</p></div>'}).join('');
+$('rs').innerHTML=T.res.map(function(r){return '<a href="files/'+r[1]+'">'+r[0]+'<span>PDF, files/'+r[1]+'</span></a>'}).join('');
+</script></body></html>
