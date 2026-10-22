@@ -1,6 +1,6 @@
 (function(){
  var MENU=[
- ['Latest',[['News','news.html','팀 소식과 경기 리포트'],['Gallery','gallery.html','레이스 데이 사진과 영상'],['Resources','gallery.html#resources','서킷 공략집, 셋업 시트, 규정집']]],
+ ['Latest',[['News','news.html','팀 소식과 경기 리포트'],['Stories','stories.html','인터뷰와 팀 이야기'],['Gallery','gallery.html','레이스 데이 사진과 영상'],['Resources','gallery.html#resources','서킷 공략집, 셋업 시트, 규정집']]],
  ['2026',[['Cars','racing.html#cars','현역 레이스카와 스펙'],['Calendar','racing.html#calendar','라운드 일정과 결과'],['Standings','racing.html#standings','챔피언십 포인트 순위']]],
  ['Team',[['Our Team','team.html','철학, 조직, 운영 방향'],['Drivers','team.html#drivers','드라이버와 크루 프로필'],['Garage','team.html#garage','보유 차량 38대'],['Junior Program','team.html#junior','차세대 드라이버 육성']]],
  ['Engineering',[['Overview','engineering.html','개발 조직과 순환 개발 체계'],['Powertrains','engineering.html#powertrains','Vista, Tenpest 엔진 라인업'],['Development Fleet','engineering.html#fleet','ORECA 07 개발차'],['Simulation & Partners','engineering.html#simulation','시뮬레이션과 기술 협력']]],
@@ -35,7 +35,7 @@
  window.tbl=function(head,rows,cap){return '<div class="tw"><table class="tbl">'+(cap?'<caption>'+cap+'</caption>':'')+'<thead><tr>'+head.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr'+(/TEAM_H/.test(r.join(' '))?' class="hl"':'')+'>'+r.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>'};
  window.formSave=function(id,key,msg){var f=document.getElementById(id);f.onsubmit=function(e){e.preventDefault();var o={t:new Date().toISOString()};new FormData(f).forEach(function(v,k){o[k]=v});try{var a=JSON.parse(localStorage.getItem(key)||'[]');a.push(o);localStorage.setItem(key,JSON.stringify(a))}catch(x){}f.reset();f.querySelector('.ok').textContent=msg}};
  window.ph=function(file,cls,ratio){return '<div class="ph '+(cls||'')+'" data-file="images/'+file+'"'+(ratio?' style="aspect-ratio:'+ratio+'"':'')+'><img src="images/'+file+'" alt="" loading="lazy" onerror="this.remove()"></div>'};
- window.logoImg=function(name){var s=name.toLowerCase().replace(/\s+/g,'-');return '<div><img src="images/partners/'+s+'.png" alt="'+name+'" onerror="this.outerHTML=\'<span>'+name+'</span>\'"></div>'};
+ window.logoImg=function(name){var s=name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'-');return '<div><img src="images/partners/'+s+'.png" alt="'+name+'" onerror="this.outerHTML=\'<span>'+name+'</span>\'"></div>'};
  document.addEventListener('DOMContentLoaded',function(){
   var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
   document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
