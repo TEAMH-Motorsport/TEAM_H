@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Studio — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css?v=5">
+<script src="js/data.js?v=5"></script><script src="js/records.js?v=5"></script><script src="js/common.js?v=5"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>TEAM_H Studio</h1><p id="sd0"></p></div></div>
+<section id="overview"><div class="wrap"><div class="grid g4" id="rl"></div></div></section>
+<section id="hub"><div class="wrap"><div class="sh"><h2>Content Hub</h2></div><div class="opt" id="hf"></div><div class="grid g4 news" id="hg"></div></div></section>
+<section id="sns"><div class="wrap"><div class="sh"><h2>SNS</h2></div><div class="grid g4" id="ch"></div></div></section>
+<section id="campaigns"><div class="wrap"><div class="sh"><h2>Campaigns</h2></div><div class="grid g3" id="cp"></div></div></section>
+<section id="press"><div class="wrap"><div class="sh"><h2>Press &amp; Media Kit</h2></div><div class="rows" id="pr"></div></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+var T=TH,S=T.studio,$=function(i){return document.getElementById(i)},cat='전체';
+$('sd0').textContent=S.desc;
+$('rl').innerHTML=S.roles.map(function(r){return '<div class="card rv"><h3 style="font-size:24px">'+r[0]+'</h3><p>'+r[1]+'</p></div>'}).join('');
+var items=T.sns.map(function(s){return{k:'SNS',t:s[2],s:s[0]+', '+s[1],f:'studio/'+s[3]+'.jpg',h:'#sns'}}).concat(T.stories.slice(0,4).map(function(s){return{k:'Story',t:s.t,s:s.who,f:'stories/'+s.f+'.jpg',h:'stories.html#'+s.id}}),T.news.slice(0,3).map(function(n){return{k:'News',t:n.t,s:n.d,f:'news/'+n.f+'.jpg',h:'news.html'}}),T.films[2025].slice(0,3).map(function(f,i){return{k:'Video',t:f.t,s:'Season Films',f:'films/2025-0'+(i+1)+'.jpg',h:'history.html#films'}}));
+$('hf').innerHTML=['전체','SNS','Story','News','Video'].map(function(c,i){return '<button'+(i?'':' class="sel"')+'>'+c+'</button>'}).join('');
+function hg(){$('hg').innerHTML=items.filter(function(x){return cat=='전체'||x.k==cat}).map(function(x){return '<a href="'+x.h+'" class="rv in">'+ph(x.f,'','16/9')+'<time>'+x.k+', '+x.s+'</time><h3>'+x.t+'</h3></a>'}).join('')}
+hg();$('hf').onclick=function(e){var b=e.target.closest('button');if(!b)return;cat=b.textContent;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x==b)});hg()};
+$('ch').innerHTML=S.channels.map(function(c){return '<a class="card rv" href="#" style="display:block"><h3 style="font-size:26px">'+c[0]+'</h3><p style="color:var(--lb)">'+c[1]+'</p><p>'+c[2]+'</p></a>'}).join('');
+$('cp').innerHTML=S.campaigns.map(function(c){return '<div class="card rv"><h3 style="font-size:26px">'+c[0]+'</h3><p>'+c[1]+'</p><p style="color:var(--lb);margin-top:10px">'+c[2]+'</p></div>'}).join('');
+$('pr').innerHTML=S.press.map(function(r){return '<a href="files/'+r[1]+'">'+r[0]+'<span>files/'+r[1]+'</span></a>'}).join('');
+</script></body></html>
