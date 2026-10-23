@@ -33,7 +33,7 @@
 <script>
 var T=TH,$=function(i){return document.getElementById(i)};
 $('org').innerHTML=[[150,'전체 인원',''],[110,'엔지니어','POWERTRAINS 70명 포함'],[19,'드라이버',''],[21,'경영과 운영','']].map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span><em>'+x[2]+'</em></div>'}).join('');
-$('drv').innerHTML=T.drivers.map(function(d){return '<div class="drv rv" style="--c:'+d.c+';--t:'+d.t+'">'+ph('drivers/'+d.f+'.jpg')+'<em>'+d.no+'</em><h3>'+d.n+'</h3><p><strong>'+d.w+'승</strong>, 포디움 '+d.p+'회</p></div>'}).join('');
+$('drv').innerHTML=T.drivers.map(function(d){return '<div class="drv rv" style="--c:'+d.c+';--t:'+d.t+'">'+ph('drivers/'+d.f+'.jpg')+'<em>'+d.no+'</em><h3>'+d.n+'</h3><p><strong>'+d.w+'승</strong>, 포디움 '+d.p+'회</p><p>'+T.driverBirth+'년생</p></div>'}).join('');
 var tb=function(no,l){return '<div class="drv"><div class="ph" style="aspect-ratio:4/5"></div><em style="color:var(--mute)">'+no+'</em><h3 class="tba">TBA</h3><p>'+l+'</p></div>'};
 $('d2').innerHTML=tb(75,'ARC GT3 #75')+tb(76,'ARC GT3 #76');$('d3').innerHTML=tb('?','IGTC GT3 번호 미정');
 var fl=[['현역 레이스카',5,'499P 2대, GT3 EVO 2대, IGTC GT3 1대'],['보존 차량',10,'역대 레이스카'],['훈련 차량',6,'드라이버 훈련용'],['테스트 차량',5,'개발과 시험용'],['수송 차량',12,'레이스 데이 운영']];

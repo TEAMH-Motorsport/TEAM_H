@@ -23,6 +23,7 @@
 <div class="card rv"><h3>테스트 시설</h3><p>APEX CITY 테스트 전용 서킷과 자체 개발, 시뮬레이션 시설을 갖추고 있다. 외장과 기본 보디워크를 뺀 차량의 주요 기계 시스템은 TEAM_H가 직접 또는 파트너와 개발한다.</p></div></div></div></section>
 <section id="simulation"><div class="wrap"><div class="sh"><h2>Simulation &amp; Partners</h2></div><div class="grid g3" id="sim"></div>
 <div class="grid g4" id="par" style="margin-top:20px"></div></div></section>
+<dialog id="ed2" class="wide"></dialog>
 </main>
 <footer id="ftr"></footer>
 <script>
@@ -30,8 +31,11 @@ var T=TH,E=T.eng,$=function(i){return document.getElementById(i)};
 $('cyc').innerHTML=E.cycle.map(function(x){return '<li>'+x+'</li>'}).join('');
 $('proj').innerHTML=E.past.map(function(p){return '<div class="card rv"><h3>'+p[0]+'</h3><p>'+p[1]+'</p></div>'}).join('');
 $('hp').innerHTML='<h3>최고출력과 내구 세팅 출력 (hp)</h3>'+E.pt.map(function(e){return '<div class="bar"><span>'+e[0]+'</span><div><i style="width:'+e[5]/7+'%"></i><u style="width:'+e[7]/7+'%"></u></div><b>'+e[5]+' / '+e[7]+'</b></div>'}).join('')+'<small>연한 막대는 최고출력, 진한 막대는 내구 세팅</small>';
-$('ptt').innerHTML=tbl(['엔진','형식','배기량','사용 시작','최고 회전수','최고출력','내구 세팅'],E.pt.map(function(e){return [e[0],e[1],e[2],e[3],e[4].toLocaleString()+' rpm',e[5]+' hp',e[6].toLocaleString()+' rpm / '+e[7]+' hp']}));
+$('ptt').innerHTML=tbl(['엔진','형식','배기량','사용 시작','최고 회전수','최고출력','내구 세팅'],E.pt.map(function(e){return ['<button class="lk" data-e="'+e[0]+'">'+e[0]+'</button>',e[1],e[2],e[3],e[4].toLocaleString()+' rpm',e[5]+' hp',e[6].toLocaleString()+' rpm / '+e[7]+' hp']}));
 $('rr').innerHTML=E.r.map(function(r){return '<div class="card rv"><h3>'+r[0]+'</h3><p>'+r[1]+'</p><dl><dt>목적</dt><dd>'+r[2]+'</dd><dt>상태</dt><dd>'+r[3]+'</dd></dl></div>'}).join('');
 $('sim').innerHTML=E.sim.map(function(s){return '<div class="card rv"><h3>'+s[0]+'</h3><p>'+s[1]+'</p></div>'}).join('');
 $('par').innerHTML=E.partners.map(function(s){return '<div class="card rv"><h3 style="font-size:22px">'+s[0]+'</h3><p>'+s[1]+'</p></div>'}).join('');
+$('ptt').insertAdjacentHTML('beforeend','<p style="color:var(--mute);font-size:14px;margin-top:10px">엔진 이름을 누르면 상세 정보가 열린다.</p>');
+$('ptt').onclick=function(ev){var b=ev.target.closest('.lk');if(!b)return;var n=b.dataset.e,r=E.pt.filter(function(x){return x[0]==n})[0],t=T.engDetail[n]||['','',''],d=$('ed2');
+ d.innerHTML='<button class="x" aria-label="닫기">×</button><h3 style="font-size:40px">'+n+'</h3><p style="color:var(--lb);margin:4px 0 14px">'+r[1]+', '+r[2]+', '+r[3]+'년부터</p><p style="color:#c9d0e2;margin-bottom:10px">'+t[0]+'</p><p style="color:#c9d0e2;margin-bottom:16px">'+t[1]+'</p><dl class="dl2"><dt>최고출력</dt><dd>'+r[5]+' hp ('+r[4].toLocaleString()+' rpm)</dd><dt>내구 세팅</dt><dd>'+r[7]+' hp ('+r[6].toLocaleString()+' rpm)</dd><dt>적용 차량</dt><dd>'+t[2]+'</dd></dl>';d.showModal();d.querySelector('.x').onclick=function(){d.close()}};
 </script></body></html>

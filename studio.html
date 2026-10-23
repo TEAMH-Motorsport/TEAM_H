@@ -10,15 +10,8 @@
 </head><body>
 <header id="hdr"></header>
 <main>
-<div class="pg"><div class="wrap"><h1>TEAM_H Studio</h1><p>매 시즌을 돌아보는 요약 영상 10편씩. 연도를 골라 보세요.</p></div></div>
-<div class="wrap"><div class="chips" id="yc" style="margin:32px 0 0"></div></div><div id="ys"></div><dialog id="fd" class="wide"></dialog>
+<div class="pg"><div class="wrap"><h1>TEAM_H Studio</h1><p>매 시즌이 끝나면 한 해를 돌아보는 요약 영상 10편을 만든다. 연도를 골라 보세요.</p></div></div>
+<section><div class="wrap"><div class="grid g3 news" id="yl"></div></div></section>
 </main>
 <footer id="ftr"></footer>
-<script>
-var T=TH,$=function(i){return document.getElementById(i)},Y=Object.keys(T.films).reverse();
-$('yc').innerHTML=Y.map(function(y){return '<a href="#y'+y+'"><span>'+y+'</span></a>'}).join('');
-$('ys').innerHTML=Y.map(function(y){var ev=T.years.filter(function(e){return e[0]==y})[0]||[];return '<section id="y'+y+'"><div class="wrap"><div class="sh"><h2>'+y+'</h2></div><p style="color:#c9d0e2;margin:-20px 0 28px;max-width:44em">'+(ev[3]?ev[1]+', '+ev[2]+'. '+ev[3]+'.':'')+'</p><div class="grid g4 news">'+T.films[y].map(function(f,i){return '<a href="#" class="rv in" data-y="'+y+'" data-i="'+i+'">'+ph('films/'+y+'-'+('0'+(i+1)).slice(-2)+'.jpg','','16/9')+'<time>'+(f.v?'재생':'영상 준비 중')+'</time><h3>'+f.t+'</h3></a>'}).join('')+'</div></div></section>'}).join('');
-$('ys').onclick=function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();var f=T.films[a.dataset.y][a.dataset.i],d=$('fd'),v=f.v,p;
- p=!v?'<p style="color:#c9d0e2">아직 올라온 영상이 없다. 관리자 페이지의 시즌 영상에서 이 영상의 v 값에 유튜브 ID(yt:ID) 또는 파일 경로를 넣으면 여기서 재생된다.</p>':v.indexOf('yt:')==0?'<iframe src="https://www.youtube-nocookie.com/embed/'+v.slice(3)+'" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0"></iframe>':'<video controls style="width:100%" src="'+v+'"></video>';
- d.innerHTML='<button class="x" aria-label="닫기">×</button><h3 style="font-size:34px;margin-bottom:14px">'+f.t+'</h3>'+p;d.showModal();d.querySelector('.x').onclick=function(){d.close();d.innerHTML=''}};
-</script></body></html>
+<script>var T=TH;document.getElementById('yl').innerHTML=Object.keys(T.films).reverse().map(function(y){var e=T.years.filter(function(x){return x[0]==y})[0]||[];return '<a href="studio-'+y+'.html" class="rv in">'+ph('films/'+y+'-01.jpg','','16/9')+'<time>'+(e[1]||'')+', 영상 10편</time><h3>'+y+' Season Review</h3><p style="color:var(--mute);font-size:14px;margin-top:6px">'+(e[3]||'')+'</p></a>'}).join('')</script></body></html>

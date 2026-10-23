@@ -30,7 +30,7 @@
 <script>
 (function(){var $=function(i){return document.getElementById(i)},T=TH;
  $('prog').innerHTML=T.programs.map(function(p){return '<div class="card rv"><h3>'+p.t+'</h3><p>'+p.d+'</p><dl>'+p.r.map(function(r){return '<dt>'+r[0]+'</dt><dd'+(r[1]=='TBA'?' class="tba"':'')+'>'+r[1]+'</dd>'}).join('')+'</dl></div>'}).join('');
- $('drv').innerHTML=T.drivers.map(function(d){return '<div class="drv rv" style="--c:'+d.c+';--t:'+d.t+'">'+ph('drivers/'+d.f+'.jpg')+'<em>'+d.no+'</em><h3>'+d.n+'</h3><p><strong>'+d.w+'승</strong> · 포디움 '+d.p+'회</p></div>'}).join('');
+ $('drv').innerHTML=T.drivers.map(function(d){return '<div class="drv rv" style="--c:'+d.c+';--t:'+d.t+'">'+ph('drivers/'+d.f+'.jpg')+'<em>'+d.no+'</em><h3>'+d.n+'</h3><p><strong>'+d.w+'승</strong> · 포디움 '+d.p+'회</p><p>'+T.driverBirth+'년생</p></div>'}).join('');
  $('news').innerHTML=T.news.slice(0,3).map(function(n){return '<a href="news.html" class="rv">'+ph('news/'+n.f+'.jpg','','16/9')+'<time>'+n.d+'</time><h3>'+n.t+'</h3></a>'}).join('');
  $('sty').innerHTML=T.stories.slice(0,3).map(function(s){return '<a href="stories.html#'+s.id+'" class="rv">'+ph('stories/'+s.f+'.jpg','','16/9')+'<time>'+s.c+', '+s.who+'</time><h3>'+s.t+'</h3></a>'}).join('');
  $('pl').innerHTML=T.partners.map(logoImg).join('');
