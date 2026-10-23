@@ -1,0 +1,10 @@
+document.addEventListener('DOMContentLoaded',function(){var T=TH,Y=window.SEASON_Y,$=function(i){return document.getElementById(i)},ev=T.years.filter(function(e){return e[0]==Y})[0]||[],h=T.hist.filter(function(x){return x.y==Y})[0],w,p,a,b,n='15';
+ if(Y==2026){var o=T.res26.reduce(function(s,r){[r[3],r[4]].forEach(function(q,i){if(q==1){s.w++;s['w'+i]++}if(q<=3){s.p++;s['p'+i]++}});return s},{w:0,p:0,w0:0,w1:0,p0:0,p1:0});w=o.w;p=o.p;a=[o.w0,o.p0];b=[o.w1,o.p1];n=T.res26.length+' / 15'}
+ else if(h){w=h.a[0]+h.b[0];p=h.a[1]+h.b[1];a=h.a;b=h.b}else{w=1;p=3}
+ var fl=T.films[Y],open2=fl.filter(function(f){return f.v}).length,ys=Object.keys(T.films).reverse();
+ $('ss').innerHTML=[[w,'우승'],[p,'포디움'],[n,'라운드'],[open2+' / 10','공개된 영상']].map(function(x){return '<div><b>'+x[0]+'</b><span>'+x[1]+'</span></div>'}).join('')+(a?'<div style="grid-column:1/-1;border:0;padding-top:20px"><span>73번 '+a[0]+'승 '+a[1]+'포디움, 78번 '+b[0]+'승 '+b[1]+'포디움</span></div>':'');
+ $('fg').innerHTML=fl.map(function(f,i){return '<a href="#" class="rv in" data-i="'+i+'">'+ph('films/'+Y+'-'+('0'+(i+1)).slice(-2)+'.jpg','','16/9')+'<time>'+(f.v?'재생':'영상 준비 중')+'</time><h3>'+f.t+'</h3></a>'}).join('');
+ var i=ys.indexOf(String(Y));$('pn').innerHTML=(ys[i+1]?'<a class="btn sub" href="studio-'+ys[i+1]+'.html">이전 시즌 '+ys[i+1]+'</a>':'')+(ys[i-1]?'<a class="btn sub" href="studio-'+ys[i-1]+'.html">다음 시즌 '+ys[i-1]+'</a>':'')+'<a class="btn sub" href="studio.html">전체 시즌</a>';
+ $('fg').onclick=function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();var f=fl[a.dataset.i],d=$('fd'),v=f.v,q;
+  q=!v?'<p style="color:#c9d0e2">아직 올라온 영상이 없다. 관리자 페이지의 시즌 영상에서 이 영상의 v 값에 유튜브 ID(yt:ID) 또는 파일 경로를 넣으면 여기서 재생된다.</p>':v.indexOf('yt:')==0?'<iframe src="https://www.youtube-nocookie.com/embed/'+v.slice(3)+'" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0"></iframe>':'<video controls style="width:100%" src="'+v+'"></video>';
+  d.innerHTML='<button class="x" aria-label="닫기">×</button><h3 style="font-size:34px;margin-bottom:14px">'+f.t+'</h3>'+q;d.showModal();d.querySelector('.x').onclick=function(){d.close();d.innerHTML=''}}});

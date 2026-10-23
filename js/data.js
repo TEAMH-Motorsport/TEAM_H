@@ -139,3 +139,11 @@ TH.filmTitles=['시즌 프리뷰','개막전 하이라이트','시즌 베스트 
 TH.films={};[2018,2019,2020,2021,2022,2023,2024,2025,2026].forEach(function(y){TH.films[y]=TH.filmTitles.map(function(t){return{t:y+' '+t,v:''}})}); // v: 'yt:유튜브ID' 또는 'files/films/2018-01.mp4'
 TH.media={desc:'TEAM_H Media는 팀의 마케팅과 팬 커뮤니케이션을 맡는 부서다. 레이스 현장 취재부터 SNS 운영, 영상 제작, 파트너 협업 콘텐츠까지 팀의 이야기를 세상에 전한다.',roles:[['SNS 운영','공식 채널 운영과 레이스 실시간 포스트'],['영상 제작','시즌 요약, 하이라이트, 온보드 영상'],['팬 프로그램','Fan Day, 퀴즈, 예측 게임 기획'],['파트너 콘텐츠','스폰서와 함께 만드는 협업 콘텐츠']],channels:[['Instagram','@teamh.racing','팀 사진과 릴스'],['YouTube','TEAM_H Racing','하이라이트와 시즌 요약'],['X','@teamh_racing','레이스 실시간 소식'],['TikTok','@teamh.racing','짧은 비하인드 영상']],campaigns:[['Road to WEC','2030년대 후반 WEC 진출까지의 여정을 연재','진행 중'],['Fan Day 2026','APEX CITY 테스트 서킷에서 여는 팬 초청 행사','11월 예정'],['Junior Program 모집','차세대 드라이버를 찾는 공개 선발 캠페인','2027 예정']],press:[['2026 시즌 프레스 킷','press-kit-2026.pdf'],['로고 팩 (SVG, PNG)','logo-pack.zip'],['드라이버 프로필 시트','driver-profiles.pdf'],['보도 자료 모음','press-releases.pdf']]};
 TH.sns=[['Instagram','2026-10-06','R8 우승! 73번과 78번이 시상대에 함께 올랐습니다.','post-1'],['YouTube','2026-10-06','R8 하이라이트 영상 공개','post-2'],['X','2026-10-05','POLE: 73번이 Seaside Circuit 폴 포지션 확보','post-3'],['Instagram','2026-09-29','Tenpest 내구 시험 비하인드 컷','post-4'],['TikTok','2026-09-15','Junior Program 첫날 현장','post-5'],['Instagram','2026-09-08','R7 더블 포디움, 감사합니다','post-6'],['X','2026-08-21','Project R #3 소식 업데이트','post-7'],['YouTube','2026-07-27','R6 하이라이트: 78번 우승','post-8']];
+
+/* ===== 드라이버 나이, 엔진 상세 ===== */
+TH.driverBirth=1994; // 확정된 드라이버 4명은 모두 같은 해에 태어난 동갑 (샘플)
+TH.engDetail={'Vista':['TEAM_H 최초의 자체 Hypercar 엔진. Project Vista에서 개발해 Porsche 963에 처음 올렸다.','3.0L V8 NA. 최고 620hp, 내구 세팅은 9,000rpm에서 480hp.','Porsche 963 (2023)'],
+ 'Vista Evo':['Vista의 개량형. 출력과 응답성을 높여 2024년 Ferrari 499P에 올렸다.','3.0L V8 NA. 최고 635hp, 내구 세팅 500hp.','Ferrari 499P (2024)'],
+ 'Vista Spec R':['배기량을 3.3L로 키운 2025년형. 15전 전승 시즌을 함께했다.','3.3L V8 NA. 최고 670hp, 내구 세팅 540hp.','Ferrari 499P (2025)'],
+ 'Vista Velo':['트윈터보를 얹은 커스터머 공급용 엔진. 외부 팀의 프로그램을 위해 개발했다.','3.3L V8 트윈터보. 최고 650hp, 내구 세팅 530hp.','커스터머 공급'],
+ 'Tenpest':['Project Langley에서 개발한 TEAM_H의 차세대 V10. 2026년 Ferrari 499P에 투입됐다.','3.5L V10 NA. 최고 15,000rpm에서 700hp, 내구 세팅은 12,000rpm에서 630hp.','Ferrari 499P (2026)']};
