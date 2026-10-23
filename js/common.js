@@ -1,13 +1,13 @@
 (function(){
  var MENU=[
  ['Latest',[['News','news.html','팀 소식과 경기 리포트'],['Resources','gallery.html#resources','서킷 공략집, 셋업 시트, 규정집']]],
- ['Media',[['Studio','studio.html','TEAM_H Studio와 콘텐츠 허브'],['Stories','stories.html','인터뷰와 팀 이야기'],['Videos','videos.html','연도별 시즌 영상'],['Gallery','gallery.html','레이스 데이 사진과 영상'],['Social','studio.html#social','공식 SNS와 게시물']]],
+ ['Media',[['Stories','stories.html','인터뷰와 팀 이야기'],['Content Hub','media.html#hub','SNS, 스토리, 뉴스 모아보기'],['SNS','media.html#sns','공식 SNS 채널'],['Campaigns','media.html#campaigns','진행 중인 캠페인'],['Gallery','gallery.html','레이스 데이 사진과 영상'],['Press & Media Kit','media.html#press','보도자료와 로고 파일']]],
  ['2026',[['Cars','racing.html#cars','현역 레이스카와 스펙'],['Calendar','racing.html#calendar','라운드 일정과 결과'],['Standings','racing.html#standings','챔피언십 포인트 순위']]],
  ['Team',[['Our Team','team.html','철학, 조직, 운영 방향'],['Drivers','team.html#drivers','드라이버와 크루 프로필'],['Garage','team.html#garage','보유 차량 38대'],['Junior Program','team.html#junior','차세대 드라이버 육성']]],
  ['Engineering',[['Overview','engineering.html','개발 조직과 순환 개발 체계'],['Powertrains','engineering.html#powertrains','Vista, Tenpest 엔진 라인업'],['Development Fleet','engineering.html#fleet','ORECA 07 개발차'],['Simulation & Partners','engineering.html#simulation','시뮬레이션과 기술 협력']]],
- ['History',[['Timeline','history.html','2017년부터의 연혁'],['Results','history.html#results','시즌별 성적'],['Championships','history.html#championships','타이틀과 통산 기록'],['Heritage Cars','history.html#heritage','역대 레이스카'],['Season Films','history.html#films','연도별 시즌 요약 영상'],['Project H','history.html#project-h','IGTC 도전 기록']]],
+ ['History',[['Timeline','history.html','2017년부터의 연혁'],['Results','history.html#results','시즌별 성적'],['Championships','history.html#championships','타이틀과 통산 기록'],['Heritage Cars','history.html#heritage','역대 레이스카'],['Project H','history.html#project-h','IGTC 도전 기록']]],
+ ['Studio',[['Season Films','studio.html','시즌 요약 영상 10편씩'],['2026','studio.html#y2026','2026 시즌 요약 영상'],['2025','studio.html#y2025','2025 시즌 요약 영상'],['2024','studio.html#y2024','2024 시즌 요약 영상'],['2023','studio.html#y2023','2023 시즌 요약 영상'],['2022','studio.html#y2022','2022 시즌 요약 영상'],['2021','studio.html#y2021','2021 시즌 요약 영상'],['2020','studio.html#y2020','2020 시즌 요약 영상'],['2019','studio.html#y2019','2019 시즌 요약 영상'],['2018','studio.html#y2018','2018 시즌 요약 영상']]],
  ['Fans',[['Fan Zone','fanzone.html','응원 게시판과 SNS'],['Wallpapers','fanzone.html#wallpapers','배경화면과 로고'],['Driver Cards','fanzone.html#cards','드라이버 카드'],['Predictions & Quiz','fanzone.html#play','경기 예측과 퀴즈']]],
- ['Studio',[['Overview','studio.html','마케팅과 미디어 팀 소개'],['Content Hub','studio.html#hub','SNS, 영상, 스토리 모아보기'],['SNS','studio.html#sns','공식 채널'],['Campaigns','studio.html#campaigns','진행 중인 캠페인'],['Press & Media Kit','studio.html#press','보도자료와 로고 파일']]],
  ['Partners',[['Partners','partners.html','파트너 등급별 소개'],['Road to WEC','partners.html#future','2027년 이후 로드맵'],['Sponsorship','partners.html#sponsorship','후원 문의']]]],
  UTIL=[['Join Us','join.html'],['Team Store','store.html'],['TEAM_H Engineering','engineering.html'],['TEAM_H POWERTRAINS','engineering.html#powertrains']],
  cur=location.pathname.split('/').pop()||'index.html',
@@ -31,7 +31,7 @@
   document.addEventListener('keydown',function(e){if(e.key=='Escape')cats.forEach(function(x){x.classList.remove('open')})})}
  var f=document.getElementById('ftr');
  if(f){f.className='ft';f.innerHTML='<div class="wrap"><div>'+logo+'<p style="margin-top:12px">'+TH.slogan+'<br>독립 컨스트럭터, APEX CITY</p></div>'+
-  MENU.map(function(c){return '<div><h4>'+c[0]+'</h4>'+c[1].map(A).join('')+'</div>'}).join('')+'<div><h4>TEAM_H</h4>'+util+'</div><p class="cp">© TEAM_H. 가상으로 만든 레이싱팀 프로젝트입니다.</p></div>'}
+  MENU.map(function(c){return '<div><h4>'+c[0]+'</h4>'+c[1].map(A).join('')+'</div>'}).join('')+'<div><h4>TEAM_H</h4>'+util+'</div><p class="cp">© TEAM_H. 가상으로 만든 레이싱팀 프로젝트입니다. <a href="admin.html" style="display:inline;color:var(--mute)">Admin</a></p></div>'}
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
  window.tbl=function(head,rows,cap){return '<div class="tw"><table class="tbl">'+(cap?'<caption>'+cap+'</caption>':'')+'<thead><tr>'+head.map(function(x){return '<th>'+x+'</th>'}).join('')+'</tr></thead><tbody>'+rows.map(function(r){return '<tr'+(/TEAM_H/.test(r.join(' '))?' class="hl"':'')+'>'+r.map(function(x){return '<td>'+x+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div>'};
