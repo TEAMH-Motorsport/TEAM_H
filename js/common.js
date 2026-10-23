@@ -1,11 +1,13 @@
 (function(){
  var MENU=[
- ['Latest',[['News','news.html','팀 소식과 경기 리포트'],['Stories','stories.html','인터뷰와 팀 이야기'],['Gallery','gallery.html','레이스 데이 사진과 영상'],['Resources','gallery.html#resources','서킷 공략집, 셋업 시트, 규정집']]],
+ ['Latest',[['News','news.html','팀 소식과 경기 리포트'],['Resources','gallery.html#resources','서킷 공략집, 셋업 시트, 규정집']]],
+ ['Media',[['Studio','studio.html','TEAM_H Studio와 콘텐츠 허브'],['Stories','stories.html','인터뷰와 팀 이야기'],['Videos','videos.html','연도별 시즌 영상'],['Gallery','gallery.html','레이스 데이 사진과 영상'],['Social','studio.html#social','공식 SNS와 게시물']]],
  ['2026',[['Cars','racing.html#cars','현역 레이스카와 스펙'],['Calendar','racing.html#calendar','라운드 일정과 결과'],['Standings','racing.html#standings','챔피언십 포인트 순위']]],
  ['Team',[['Our Team','team.html','철학, 조직, 운영 방향'],['Drivers','team.html#drivers','드라이버와 크루 프로필'],['Garage','team.html#garage','보유 차량 38대'],['Junior Program','team.html#junior','차세대 드라이버 육성']]],
  ['Engineering',[['Overview','engineering.html','개발 조직과 순환 개발 체계'],['Powertrains','engineering.html#powertrains','Vista, Tenpest 엔진 라인업'],['Development Fleet','engineering.html#fleet','ORECA 07 개발차'],['Simulation & Partners','engineering.html#simulation','시뮬레이션과 기술 협력']]],
- ['History',[['Timeline','history.html','2017년부터의 연혁'],['Results','history.html#results','시즌별 성적'],['Championships','history.html#championships','타이틀과 통산 기록'],['Heritage Cars','history.html#heritage','역대 레이스카'],['Project H','history.html#project-h','IGTC 도전 기록']]],
+ ['History',[['Timeline','history.html','2017년부터의 연혁'],['Results','history.html#results','시즌별 성적'],['Championships','history.html#championships','타이틀과 통산 기록'],['Heritage Cars','history.html#heritage','역대 레이스카'],['Season Films','history.html#films','연도별 시즌 요약 영상'],['Project H','history.html#project-h','IGTC 도전 기록']]],
  ['Fans',[['Fan Zone','fanzone.html','응원 게시판과 SNS'],['Wallpapers','fanzone.html#wallpapers','배경화면과 로고'],['Driver Cards','fanzone.html#cards','드라이버 카드'],['Predictions & Quiz','fanzone.html#play','경기 예측과 퀴즈']]],
+ ['Studio',[['Overview','studio.html','마케팅과 미디어 팀 소개'],['Content Hub','studio.html#hub','SNS, 영상, 스토리 모아보기'],['SNS','studio.html#sns','공식 채널'],['Campaigns','studio.html#campaigns','진행 중인 캠페인'],['Press & Media Kit','studio.html#press','보도자료와 로고 파일']]],
  ['Partners',[['Partners','partners.html','파트너 등급별 소개'],['Road to WEC','partners.html#future','2027년 이후 로드맵'],['Sponsorship','partners.html#sponsorship','후원 문의']]]],
  UTIL=[['Join Us','join.html'],['Team Store','store.html'],['TEAM_H Engineering','engineering.html'],['TEAM_H POWERTRAINS','engineering.html#powertrains']],
  cur=location.pathname.split('/').pop()||'index.html',
@@ -17,7 +19,7 @@
  var ic=document.createElement('link');ic.rel='icon';ic.href="data:image/svg+xml,"+encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='#10131B'/><path d='M7 5h5v8h8V5h5v18h-5v-7h-8v7H7z' fill='#fff'/><path d='M4 28l4-4h20l-4 4z' fill='#4166F5'/></svg>");document.head.appendChild(ic);
  function mount(){
  var h=document.getElementById('hdr');
- if(h){h.className='hd';
+ if(h){h.className='hd';window.addEventListener('scroll',function(){h.classList.toggle('sc',scrollY>20)},{passive:true});
   h.innerHTML='<div class="wrap hg">'+logo+'<div class="hr"><div class="ut">'+util+'</div><nav class="nav" aria-label="주 메뉴">'+
    MENU.map(function(c){var on=c[1].some(function(i){return i[1].split('#')[0]==cur&&cur!='index.html'});
     return '<div class="cat'+(on?' on':'')+'"><button aria-expanded="false">'+c[0]+'</button><ul>'+c[1].map(function(i){return '<li>'+D(i)+'</li>'}).join('')+'</ul></div>'}).join('')+
@@ -37,7 +39,9 @@
  window.ph=function(file,cls,ratio){return '<div class="ph '+(cls||'')+'" data-file="images/'+file+'"'+(ratio?' style="aspect-ratio:'+ratio+'"':'')+'><img src="images/'+file+'" alt="" loading="lazy" onerror="this.remove()"></div>'};
  window.logoImg=function(name){var s=name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/\s+/g,'-');return '<div><img src="images/partners/'+s+'.png" alt="'+name+'" onerror="this.outerHTML=\'<span>'+name+'</span>\'"></div>'};
  document.addEventListener('DOMContentLoaded',function(){
-  var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
+  var bar=document.createElement('div');bar.className='sp';document.body.appendChild(bar);var hd=document.getElementById('hdr');
+  addEventListener('scroll',function(){var h=document.documentElement,m=h.scrollHeight-h.clientHeight;bar.style.transform='scaleX('+(m>0?h.scrollTop/m:0)+')';if(hd)hd.classList.toggle('sc',h.scrollTop>40)},{passive:true});
+  var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting){x.target.style.transitionDelay=Math.min([].indexOf.call(x.target.parentNode.children,x.target),6)*60+'ms';x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.12});
   document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
  });
 })();
