@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — TEAM_H</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<link rel="stylesheet" href="css/style.css?v=6">
+<script src="js/data.js?v=6"></script><script src="js/overrides.js?v=6"></script><script src="js/apply.js?v=6"></script><script src="js/records.js?v=6"></script><script src="js/common.js?v=6"></script>
+</head><body>
+<header id="hdr"></header>
+<main>
+<div class="pg"><div class="wrap"><h1>Admin</h1><p>모든 데이터를 입력하고 바꿉니다. 바꾼 값은 이 브라우저에 저장되고, 내보내기로 만든 overrides.js를 GitHub에 올리면 모든 기기에 반영됩니다.</p></div></div>
+<section><div class="wrap"><div class="card" style="margin-bottom:24px"><div class="opt" style="margin:0"><button id="ex">overrides.js 내려받기</button><button id="im">불러오기</button><button id="ra">전체 초기화</button></div><input type="file" id="fi" hidden><p class="ok" id="am"></p></div>
+<div class="fm"><label>수정할 데이터</label><select id="ks"></select></div><div id="ed"></div></div></section>
+</main>
+<footer id="ftr"></footer>
+<script>
+var CODE='teamh',T=TH,$=function(i){return document.getElementById(i)};
+if(sessionStorage.getItem('th_adm')!='1'){if(prompt('관리자 비밀번호')==CODE)sessionStorage.setItem('th_adm','1');else{document.querySelector('main').innerHTML='<section><div class="wrap"><p>접근할 수 없습니다.</p></div></section>';throw 0}}
+var SKIP=['stats','st','full','car','n499','totals','standing'],
+L={slogan:'슬로건',next:'다음 경기',last:'지난 경기 요약',now:'현재 상태 문구',rounds:'시즌 총 라운드 수',r8:'최근 라운드 결과표',programs:'프로그램 카드',drivers:'드라이버',news:'뉴스',partners:'홈 파트너 로고 이름',titles:'ARC 타이틀 수',pts:'순위별 포인트',hist:'지난 시즌 기록',base:'폴 포지션 기본값',res26:'2026 라운드 결과',future:'남은 라운드 일정',extra:'드라이버 기타 대회 기록',rv:'Hypercar 경쟁팀 포인트',gt3pts:'TEAM_H GT3 포인트',gt3rv:'GT3 경쟁팀 포인트',igtc:'IGTC 일정과 포인트',circ:'서킷 정보',fleet:'차량 38대',eng:'Engineering',years:'연도별 연혁',eras:'시대 구분',heritage:'역대 차량',projectH:'Project H',tiers:'파트너 등급',road:'로드맵',plans:'미래 계획',vision:'비전 문구',guest:'응원 메시지 샘플',walls:'배경화면 이름',quiz:'퀴즈',res:'자료실 PDF',jobs:'채용 직무',goods:'스토어 상품',stories:'스토리와 인터뷰',depts:'부서',films:'시즌 영상 (v: yt:유튜브ID 또는 파일 경로)',filmTitles:'영상 기본 제목',media:'Media 부서',sns:'SNS 게시물'},
+ks=Object.keys(T).filter(function(k){return SKIP.indexOf(k)<0&&typeof T[k]!='function'}),cur,
+prim=function(x){return x===null||['string','number','boolean'].indexOf(typeof x)>=0},
+ovr=function(){try{return JSON.parse(localStorage.getItem('TH_OVR')||'{}')}catch(e){return{}}},
+msg=function(t){$('am').textContent=t},
+kind=function(v){if(prim(v))return'sc';if(Array.isArray(v)){if(!v.length)return'js';if(v.every(prim))return'pa';if(v.every(function(r){return Array.isArray(r)&&r.every(prim)}))return'aa';if(v.every(function(r){return r&&typeof r=='object'&&!Array.isArray(r)&&Object.keys(r).every(function(k){return prim(r[k])})}))return'ao';return'js'}
+ if(v&&typeof v=='object'&&Object.keys(v).every(function(k){return prim(v[k])}))return'kv';return'js'},
+esc=function(x){return String(x==null?'':x).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;')},
+conv=function(s,o){if(s==='')return(typeof o=='number'||o===null)?null:'';if(typeof o=='number'){var n=Number(s);return isNaN(n)?s:n}if(typeof o=='boolean')return s=='true';return s};
+$('ks').innerHTML=ks.map(function(k){return '<option value="'+k+'">'+(L[k]||k)+' ('+k+')</option>'}).join('');
+function draw(){cur=$('ks').value;var v=T[cur],k=kind(v),h='',inp=function(x,a){return '<input value="'+esc(x)+'" data-o="'+esc(JSON.stringify(x))+'"'+(a||'')+'>'};
+ if(k=='sc')h=inp(v);
+ else if(k=='kv')h='<table class="tbl ed">'+Object.keys(v).map(function(q){return '<tr><td>'+q+'</td><td>'+inp(v[q],' data-k="'+q+'"')+'</td></tr>'}).join('')+'</table>';
+ else if(k=='pa'||k=='aa'||k=='ao'){var cols=k=='pa'?[0]:k=='aa'?Array.apply(null,Array(Math.max.apply(null,v.map(function(r){return r.length})))).map(function(_,i){return i}):Object.keys(v.reduce(function(a,r){Object.keys(r).forEach(function(q){a[q]=1});return a},{}));
+  h='<div class="tw"><table class="tbl ed" id="tb"><thead><tr><th></th>'+cols.map(function(c){return '<th>'+(k=='aa'?c+1:k=='pa'?'값':c)+'</th>'}).join('')+'</tr></thead><tbody>'+v.map(function(r,i){return '<tr><td><button class="del" data-d="'+i+'">×</button></td>'+cols.map(function(c){var x=k=='pa'?r:r[c];return '<td>'+inp(x,' data-c="'+c+'"')+'</td>'}).join('')+'</tr>'}).join('')+'</tbody></table></div><div class="opt"><button id="ad">행 추가</button></div>';
+  window._cols=cols;window._k=k}
+ else h='<textarea id="ja" rows="16" style="font-family:monospace;font-size:13px">'+esc(JSON.stringify(v,null,1))+'</textarea>';
+ $('ed').innerHTML='<div class="fm">'+h+'<div class="opt"><button class="btn" id="sv">저장</button><button id="rk">이 항목 원래대로</button></div></div>';msg('')}
+function read(){var v=T[cur],k=kind(v),g=function(e){return conv(e.value,JSON.parse(e.dataset.o))};
+ if(k=='sc')return g($('ed').querySelector('input'));
+ if(k=='kv'){var o={};$('ed').querySelectorAll('input').forEach(function(e){o[e.dataset.k]=g(e)});return o}
+ if(k=='js')return JSON.parse($('ja').value);
+ var rows=[].slice.call($('tb').tBodies[0].rows).map(function(tr){return [].slice.call(tr.querySelectorAll('input'))});
+ return rows.map(function(r){if(window._k=='pa')return g(r[0]);if(window._k=='aa')return r.map(g);var o={};r.forEach(function(e){o[e.dataset.c]=g(e)});return o})}
+$('ks').onchange=draw;
+$('ed').onclick=function(e){var b=e.target.closest('button');if(!b)return;
+ if(b.id=='sv'){try{var v=read(),o=ovr();o[cur]=v;localStorage.setItem('TH_OVR',JSON.stringify(o));T[cur]=v;msg('저장했습니다. 다른 페이지에서 바로 반영됩니다.')}catch(x){msg('저장하지 못했습니다: '+x.message)}}
+ else if(b.id=='rk'){var o=ovr();delete o[cur];localStorage.setItem('TH_OVR',JSON.stringify(o));location.reload()}
+ else if(b.id=='ad'){var tb=$('tb').tBodies[0],last=tb.rows[tb.rows.length-1];if(last){var n=last.cloneNode(true);n.querySelectorAll('input').forEach(function(i){i.value=''});tb.appendChild(n)}else msg('빈 목록은 JSON으로 바꿔야 합니다.')}
+ else if(b.dataset.d!=null)b.closest('tr').remove()};
+$('ex').onclick=function(){var m=Object.assign({},window.TH_FILE_OVR||{},ovr()),a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['window.TH_FILE_OVR='+JSON.stringify(m)+';\n'],{type:'text/javascript'}));a.download='overrides.js';a.click();msg('overrides.js를 내려받았습니다. 저장소의 js 폴더에 올리면 모든 기기에 반영됩니다.')};
+$('im').onclick=function(){$('fi').click()};
+$('fi').onchange=function(){var f=this.files[0];if(!f)return;f.text().then(function(t){try{var o=JSON.parse(t.slice(t.indexOf('=')+1,t.lastIndexOf(';')>0?t.lastIndexOf(';'):undefined));localStorage.setItem('TH_OVR',JSON.stringify(o));location.reload()}catch(x){msg('파일을 읽지 못했습니다.')}})};
+$('ra').onclick=function(){if(confirm('이 브라우저에 저장된 모든 수정을 지웁니다.')){localStorage.removeItem('TH_OVR');location.reload()}};
+draw();
+</script></body></html>

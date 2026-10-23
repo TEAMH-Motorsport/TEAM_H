@@ -5,8 +5,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<link rel="stylesheet" href="css/style.css?v=5">
-<script src="js/data.js?v=5"></script><script src="js/records.js?v=5"></script><script src="js/common.js?v=5"></script>
+<link rel="stylesheet" href="css/style.css?v=6">
+<script src="js/data.js?v=6"></script><script src="js/overrides.js?v=6"></script><script src="js/apply.js?v=6"></script><script src="js/records.js?v=6"></script><script src="js/common.js?v=6"></script>
 </head><body>
 <header id="hdr"></header>
 <main>
@@ -16,9 +16,7 @@
 <section id="championships"><div class="wrap"><div class="sh"><h2>Championships</h2></div><div class="stats s4 rv" id="ch"></div><div class="chips rv" id="chy"></div></div></section>
 <section id="heritage"><div class="wrap"><div class="sh"><h2>Heritage Cars</h2></div><div class="grid g2" id="her"></div>
 <p style="color:#c9d0e2;margin-top:20px">역대 챔피언 차량 10대는 지금도 보존하고 있다.</p></div></section>
-<section id="films"><div class="wrap"><div class="sh"><h2>Season Films</h2></div><div class="opt" id="fy"></div><div class="grid g4 news" id="fg"></div></div></section>
 <section id="project-h"><div class="wrap"><div class="sh"><h2>Project H</h2></div><div class="card rv" id="ph2"></div></div></section>
-<dialog id="fd" class="wide"></dialog>
 </main>
 <footer id="ftr"></footer>
 <script>
@@ -37,10 +35,4 @@ $('ch').innerHTML=[[T.titles,'ARC 챔피언 타이틀','드라이버와 컨스�
 $('chy').innerHTML=tt.map(function(y){return '<span>'+y+'</span>'}).join('');
 $('her').innerHTML=T.heritage.map(function(h){var w=0,p=0,rc=0;h[3].forEach(function(y){var r=by[y];w+=r.w;p+=r.p;rc+=r.n||15});return '<div class="card rv">'+ph('cars/'+h[0].toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.jpg')+'<h3>'+h[0]+'</h3><p>'+h[5]+'</p><dl><dt>제조사</dt><dd>'+h[1]+'</dd><dt>사용 기간</dt><dd>'+h[2]+'</dd><dt>ARC 기록</dt><dd>'+rc+'경기 '+w+'승 '+p+'포디움</dd><dt>사양</dt><dd>'+h[4]+'</dd></dl></div>'}).join('');
 var P=T.projectH;$('ph2').innerHTML='<h3>'+P.t+'</h3><dl><dt>연도</dt><dd>'+P.y+'</dd><dt>차량</dt><dd>'+P.car+'</dd><dt>결과</dt><dd>'+P.res+'</dd><dt>목적</dt><dd>'+P.why+'</dd><dt>얻은 것</dt><dd>'+P.got+'</dd></dl>';
-var fy=2026;$('fy').innerHTML=Object.keys(T.films).map(function(y){return '<button'+(y==fy?' class="sel"':'')+'>'+y+'</button>'}).join('');
-function fg(){$('fg').innerHTML=T.films[fy].map(function(f,i){return '<a href="#" class="rv in" data-i="'+i+'">'+ph('films/'+fy+'-'+('0'+(i+1)).slice(-2)+'.jpg','','16/9')+'<time>'+(f.v?'재생':'영상 준비 중')+'</time><h3>'+f.t+'</h3></a>'}).join('')}
-fg();$('fy').onclick=function(e){var b=e.target.closest('button');if(!b)return;fy=+b.textContent;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('sel',x==b)});fg()};
-$('fg').onclick=function(e){var a=e.target.closest('a');if(!a)return;e.preventDefault();var f=T.films[fy][a.dataset.i],d=$('fd'),v=f.v,p;
- p=!v?'<p style="color:#c9d0e2">아직 올라온 영상이 없다. data.js의 TH.films에서 이 영상의 v 값에 유튜브 ID(yt:ID) 또는 파일 경로를 넣으면 여기서 재생된다.</p>':v.indexOf('yt:')==0?'<iframe src="https://www.youtube-nocookie.com/embed/'+v.slice(3)+'" allowfullscreen style="width:100%;aspect-ratio:16/9;border:0"></iframe>':'<video controls style="width:100%" src="'+v+'"></video>';
- d.innerHTML='<button class="x" aria-label="닫기">×</button><h3 style="font-size:34px;margin-bottom:14px">'+f.t+'</h3>'+p;d.showModal();d.querySelector('.x').onclick=function(){d.close();d.innerHTML=''}};
 </script></body></html>
