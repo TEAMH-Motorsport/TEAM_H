@@ -156,3 +156,4 @@ main{animation:fin .7s ease both}@keyframes fin{from{opacity:0}}
 @media(max-width:1200px){.cat ul{display:none;visibility:visible;opacity:1;transform:none;transition:none}.cat.open ul{display:block}}
 @media(max-width:1380px){.nav{font-size:13.5px}.cat>button{padding:20px 7px;gap:5px}.hg{gap:22px}}
 ::-webkit-scrollbar{width:10px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#2d3548;border-radius:5px}
+.ed input{width:100%;min-width:90px;background:var(--bg);border:1px solid var(--line);color:#fff;padding:7px 9px;font:inherit;font-size:13px;margin:0}.ed td{padding:4px}.del{background:none;border:0;color:var(--mute);font-size:18px;cursor:pointer}.del:hover{color:#fff}.fm select,.fm textarea{margin-bottom:14px}#ed>.fm>input{max-width:420px}
